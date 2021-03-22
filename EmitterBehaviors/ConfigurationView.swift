@@ -14,7 +14,7 @@ struct ConfigurationView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-      Form {
+      List {
 
         Section(header: Text("Emitter")) {
           EmitterConfigurationView(store: store.scope(state: \.emitter,
@@ -57,17 +57,17 @@ struct NumericTextField: View {
     }, set: { (str) in
       self.value = CGFloat(Double(str) ?? 0)
     })).keyboardType(.numbersAndPunctuation)
-    .foregroundColor(Color.black.opacity(0.8))
-    .padding([.top, .bottom], 6)
+    .foregroundColor(Color.white)
+    .padding([.top, .bottom], 2)
     .frame(width: 60)
     .multilineTextAlignment(.center)
     .background(
       RoundedRectangle(cornerRadius: 4)
-        .foregroundColor(Color.white)
+        .foregroundColor(Color.black.opacity(0.4))
     ).overlay(
       RoundedRectangle(cornerRadius: 4)
         .stroke(Color.black)
-    )
+    ).padding([.top, .bottom], 3)
 
   }
 
@@ -81,12 +81,16 @@ struct Vector3View: View {
   var body: some View {
     VStack(alignment: .leading) {
       Text(label).font(.subheadline)
+        .padding([.bottom], 2)
+
       HStack {
-        Text("X")
+        Text("X").font(.subheadline)
         NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
-        Text("Y")
+        Spacer()
+        Text("Y").font(.subheadline)
         NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
-        Text("Z")
+        Spacer()
+        Text("Z").font(.subheadline)
         NumericTextField(minValue: 0, maxValue: 10, value: $value.z)
       }
     }
@@ -211,7 +215,9 @@ struct BehaviorSettingsView: View {
         }
         }
       }
+      .padding(.all, 10)
     }
+    .padding([.top, .bottom], 10)
   }
 
 }

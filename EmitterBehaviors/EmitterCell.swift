@@ -9,6 +9,34 @@ import ComposableArchitecture
 import UIKit
 import SwiftUI
 
+enum ParticleContents: String, CaseIterable, Identifiable, Equatable {
+  case square
+  case rectangle
+  case arrow
+  case circle
+  case heart
+
+  var id: String {
+    rawValue
+  }
+
+  var image: UIImage? {
+    switch self {
+    case .arrow:
+      return UIImage(named: "default-emitter-arrow")
+    case .rectangle:
+      return UIImage(named: "default-emitter-rectangle")
+    case .square:
+      return UIImage(named: "default-emitter-square")
+    case .circle:
+      return UIImage(named: "default-emitter-circle")
+    case .heart:
+      return UIImage(named: "default-emitter-heart")
+    }
+  }
+
+}
+
 enum ParticleType: String, CaseIterable, Identifiable, Equatable {
   var id: String {
     rawValue
@@ -21,8 +49,9 @@ enum ParticleType: String, CaseIterable, Identifiable, Equatable {
 struct EmitterCell: Equatable {
 
   var particleType = ParticleType.plane
-  var contents: CGImage? = UIImage(named: "default-emitter")?.cgImage
+  var contents = ParticleContents.rectangle
   var color: Color = .purple
+  var alpha: CGFloat = 1
   var scale: CGFloat = 1
   var scaleRange: CGFloat = 0.2
   var scaleSpeed: CGFloat = 0.03
@@ -30,9 +59,7 @@ struct EmitterCell: Equatable {
   var spinRange: CGFloat = 0.1
   var velocity: CGFloat = 10
   var velocityRange: CGFloat = 8
-  var yAcceleration: CGFloat = 150
-  var xAcceleration: CGFloat = 0.2
-  var zAcceleration: CGFloat = 50
+  var acceleration: Vector3 = Vector3(x: 0, y: 150, z: 0)
   var emissionRange: CGFloat = 6.28
   var birthRate: CGFloat = 10
   var lifetime: CGFloat = 5
@@ -52,3 +79,9 @@ let emitterCellReducer = Reducer<EmitterCell, EmitterCellAction, AppEnvironment>
   return .none
 }
 .binding(action: /EmitterCellAction.bindingAction)
+
+extension EmitterCell {
+  var showOrientations: Bool {
+    return particleType == .plane
+  }
+}

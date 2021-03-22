@@ -14,7 +14,9 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       ConfigurationView(store: store)
+        .navigationBarHidden(true)
       EmitterViewRepresentable(store: store)
+        .navigationBarHidden(true)
     }
 
   }

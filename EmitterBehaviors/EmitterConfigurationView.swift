@@ -13,6 +13,7 @@ struct EmitterConfigurationView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
+
       VStack(alignment: .leading, spacing: 20) {
         Menu(viewStore.emitterShape.rawValue.capitalized) {
           ForEach(EmitterShape.allCases, id: \.self) { type in
@@ -34,6 +35,8 @@ struct EmitterConfigurationView: View {
                     value: viewStore.binding(keyPath: \.birthRate,
                                              send: EmitterAction.bindingAction))
       }
+      .padding(.all, 10)
     }
+    .padding([.top, .bottom], 10)
   }
 }

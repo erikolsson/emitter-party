@@ -41,6 +41,7 @@ extension EmitterBehavior {
       object.setValue(NSNumber(value: Float(stiffness)), forKey: "stiffness")
       object.setValue(NSNumber(value: Float(radius)), forKey: "radius")
       object.setValue(NSNumber(value: Float(falloff)), forKey: "falloff")
+      object.setValue(position, forKey: "position")
       
     }
 
@@ -114,25 +115,6 @@ class EmitterView: UIView {
     }
   }
 
-  var image: UIImage {
-    let rect = CGRect(x: 0, y: 0, width: 13, height: 20)
-
-    UIGraphicsBeginImageContext(rect.size)
-    let context = UIGraphicsGetCurrentContext()!
-    context.setFillColor(UIColor.black.cgColor)
-
-    context.rotate(by: .random(in: 0 ... .pi/2))
-    context.move(to: .zero)
-    context.addLine(to: .init(x: rect.maxX, y: 0))
-    context.addLine(to: .init(x: rect.midX, y: rect.maxY))
-    context.fillPath()
-
-    let image = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return image!
-  }
-
-
   var emitterCell: CAEmitterCell?
   func configureEmitterCell(emitterConfiguration: EmitterCell) {
 
@@ -142,18 +124,21 @@ class EmitterView: UIView {
     emitterCellEmitterCell.name = "acell"
     emitterCellEmitterCell.beginTime = 0.1
     emitterCellEmitterCell.birthRate = 100
-    emitterCellEmitterCell.contents = emitterConfiguration.contents
+    emitterCellEmitterCell.contents = emitterConfiguration.contents.image?.cgImage
     emitterCellEmitterCell.emissionRange = emitterConfiguration.emissionRange
     emitterCellEmitterCell.lifetime = 10
     emitterCellEmitterCell.spin = 4
     emitterCellEmitterCell.spinRange = 8
-    emitterCellEmitterCell.scale = 0.9
-    emitterCellEmitterCell.color = UIColor(emitterConfiguration.color).cgColor
+    emitterCellEmitterCell.scale = emitterConfiguration.scale
+    emitterCellEmitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
 
     emitterCellEmitterCell.scaleRange = emitterConfiguration.scaleRange
     emitterCellEmitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
-    emitterCellEmitterCell.yAcceleration = emitterConfiguration.yAcceleration
+    emitterCellEmitterCell.xAcceleration = emitterConfiguration.acceleration.x
+    emitterCellEmitterCell.yAcceleration = emitterConfiguration.acceleration.y
+    emitterCellEmitterCell.zAcceleration = emitterConfiguration.acceleration.z
 
+    
 //    emitterCellEmitterCell.birthRate = 10 // Float(emitterConfiguration.birthRate)
     emitterCellEmitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
 

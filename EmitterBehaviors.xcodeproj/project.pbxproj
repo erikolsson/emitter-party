@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		035D99902608A1A5007C7D75 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfigurationView.swift; sourceTree = "<group>"; };
+		037089812608D34500F67E57 /* EmitterBehaviors.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmitterBehaviors.entitlements; sourceTree = "<group>"; };
 		037E09A3260885C800CBBCA0 /* EmitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCell.swift; sourceTree = "<group>"; };
 		037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfigurationView.swift; sourceTree = "<group>"; };
 		03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmitterBehaviors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +71,7 @@
 		03D9A6212607D5A300B42C8E /* EmitterBehaviors */ = {
 			isa = PBXGroup;
 			children = (
+				037089812608D34500F67E57 /* EmitterBehaviors.entitlements */,
 				03D9A63D2607DC5400B42C8E /* AppState.swift */,
 				03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */,
 				03D9A6242607D5A300B42C8E /* ContentView.swift */,
@@ -308,6 +310,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EmitterBehaviors/EmitterBehaviors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EmitterBehaviors/Preview Content\"";
 				DEVELOPMENT_TEAM = ZW2C6ZA5K9;
@@ -320,8 +323,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.traduko.EmitterBehaviors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Debug;
 		};
@@ -330,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EmitterBehaviors/EmitterBehaviors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EmitterBehaviors/Preview Content\"";
 				DEVELOPMENT_TEAM = ZW2C6ZA5K9;
@@ -342,8 +347,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.traduko.EmitterBehaviors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "2,6";
 			};
 			name = Release;
 		};
