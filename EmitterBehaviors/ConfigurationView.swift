@@ -16,9 +16,14 @@ struct ConfigurationView: View {
     WithViewStore(store) { viewStore in
       Form {
 
-        Section(header: Text("Emitter Cells"), content: {
+        Section(header: Text("Emitter")) {
           EmitterConfigurationView(store: store.scope(state: \.emitter,
                                                       action: AppAction.emitter))
+        }
+
+        Section(header: Text("Emitter Cells"), content: {
+          EmitterCellConfigurationView(store: store.scope(state: \.emitterCell,
+                                                      action: AppAction.emitterCell))
         })
 
         Section(header: Text("Behaviors")) {
@@ -47,11 +52,23 @@ struct NumericTextField: View {
   @Binding var value: CGFloat
 
   var body: some View {
-    Text("\(value)")
-      .gesture(DragGesture().onChanged({ (value) in
-        print(value)
-        self.value = (value.location.x - value.startLocation.x) / 10
-      }))
+    TextField("A", text: .init(get: {
+      return String(format: "%0.1f", value)
+    }, set: { (str) in
+      self.value = CGFloat(Double(str) ?? 0)
+    })).keyboardType(.numbersAndPunctuation)
+    .foregroundColor(Color.black.opacity(0.8))
+    .padding([.top, .bottom], 6)
+    .frame(width: 60)
+    .multilineTextAlignment(.center)
+    .background(
+      RoundedRectangle(cornerRadius: 4)
+        .foregroundColor(Color.white)
+    ).overlay(
+      RoundedRectangle(cornerRadius: 4)
+        .stroke(Color.black)
+    )
+
   }
 
 }
@@ -63,7 +80,7 @@ struct Vector3View: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      Text(label)
+      Text(label).font(.subheadline)
       HStack {
         Text("X")
         NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
@@ -81,12 +98,10 @@ struct CGFloatView: View {
   @Binding var value: CGFloat
 
   var body: some View {
-    VStack(alignment: .leading) {
-      Text(label)
-      HStack {
-        Text("Value")
-        NumericTextField(minValue: 0, maxValue: 10, value: $value)
-      }
+    HStack(alignment: .center) {
+      Text(label).font(.subheadline)
+      Spacer(minLength: 10)
+      NumericTextField(minValue: 0, maxValue: 10, value: $value)
     }
   }
 }
@@ -97,11 +112,12 @@ struct CGPointView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      Text(label)
+      Text(label).font(.subheadline).bold()
       HStack {
-        Text("X")
+        Text("X").font(.subheadline)
         NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
-        Text("Y")
+        Spacer()
+        Text("Y").font(.subheadline)
         NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
       }
     }
@@ -112,11 +128,10 @@ struct BehaviorSettingsView: View {
 
   let store: Store<EmitterBehavior, EmitterBehaviorAction>
 
-  @State var showingPopover = false
-
   var body: some View {
     WithViewStore(store) { viewStore in
-      VStack(alignment: .leading) {
+
+      VStack(alignment: .leading, spacing: 5) {
 
         HStack {
           Menu(viewStore.behaviorType.title) {

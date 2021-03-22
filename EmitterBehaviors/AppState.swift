@@ -9,15 +9,16 @@ import Swift
 import ComposableArchitecture
 
 struct AppState: Equatable {
-
-  var emitter: Emitter = Emitter()
+  var emitter = Emitter()
+  var emitterCell: EmitterCell = EmitterCell()
   var behaviors: IdentifiedArrayOf<EmitterBehavior> = [
-    EmitterBehavior(behaviorType: .wave)
+//    EmitterBehavior(behaviorType: .wave)
   ]
 }
 
 enum AppAction: Equatable {
   case behavior(id: EmitterBehavior.ID, action: EmitterBehaviorAction)
+  case emitterCell(EmitterCellAction)
   case emitter(EmitterAction)
   case add
 }
@@ -27,7 +28,10 @@ struct AppEnvironment {}
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   emitterBehaviorReducer.forEach(state: \.behaviors,
                                  action: /AppAction.behavior(id:action:), environment: {$0}),
-  emitterReducer.pullback(state: \.emitter, action: /AppAction.emitter, environment: {$0}),
+  emitterCellReducer.pullback(state: \.emitterCell, action: /AppAction.emitterCell, environment: {$0}),
+  emitterReducer.pullback(state: \.emitter,
+                          action: /AppAction.emitter,
+                          environment: {$0}),
   Reducer<AppState, AppAction, AppEnvironment> {
     (state, action, env) -> Effect<AppAction, Never> in
     switch action {
@@ -39,7 +43,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.behaviors.remove(id: id)
       return .none
 
-    case .behavior(id: _, action: _), .emitter:
+    case .behavior, .emitterCell, .emitter:
       return .none
     }
   }

@@ -73,6 +73,7 @@ class EmitterView: UIView {
   }
 
   func observeStore() {
+
     viewStore.publisher.behaviors
       .receive(on: DispatchQueue.main)
       .map { $0.map(\.asBehavior) }
@@ -80,83 +81,102 @@ class EmitterView: UIView {
         self?.behaviors = behaviors
       }.store(in: &cancellables)
 
-    viewStore.publisher.emitter
+    viewStore.publisher.emitterCell
       .receive(on: DispatchQueue.main)
       .sink { [weak self] (emitterConfiguration) in
-        self?.configureEmitter(emitterConfiguration: emitterConfiguration)
+        self?.configureEmitterCell(emitterConfiguration: emitterConfiguration)
+      }.store(in: &cancellables)
+
+    viewStore.publisher.emitter
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] (val) in
+        self?.configureEmitter(configuration: val)
       }.store(in: &cancellables)
   }
 
   let emitterLayer = CAEmitterLayer()
-  let emitterCellEmitterCell = CAEmitterCell()
+//  let emitterCellEmitterCell = CAEmitterCell()
 
   var behaviors: [NSObject] = [] {
     didSet {
-      emitterLayer.emitterCells = [emitterCellEmitterCell]
       emitterLayer.setValue(behaviors, forKey: "emitterBehaviors")
     }
   }
 
-  func configureEmitter(emitterConfiguration: Emitter) {
+  func configureEmitter(configuration: Emitter) {
+    emitterLayer.emitterShape = CAEmitterLayerEmitterShape(rawValue: configuration.emitterShape.rawValue)
+    emitterLayer.emitterSize = CGSize(width: configuration.emitterSize.x, height: configuration.emitterSize.y)
+    emitterLayer.emitterPosition = configuration.emitterPosition
+    emitterLayer.birthRate = Float(configuration.birthRate)
+
+    if emitterLayer.superlayer == nil {
+      layer.addSublayer(emitterLayer)
+    }
+  }
+
+  var image: UIImage {
+    let rect = CGRect(x: 0, y: 0, width: 13, height: 20)
+
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()!
+    context.setFillColor(UIColor.black.cgColor)
+
+    context.rotate(by: .random(in: 0 ... .pi/2))
+    context.move(to: .zero)
+    context.addLine(to: .init(x: rect.maxX, y: 0))
+    context.addLine(to: .init(x: rect.midX, y: rect.maxY))
+    context.fillPath()
+
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image!
+  }
+
+
+  var emitterCell: CAEmitterCell?
+  func configureEmitterCell(emitterConfiguration: EmitterCell) {
+
+    let emitterCellEmitterCell = CAEmitterCell()
+    self.emitterCell = emitterCellEmitterCell
+
+    emitterCellEmitterCell.name = "acell"
+    emitterCellEmitterCell.beginTime = 0.1
+    emitterCellEmitterCell.birthRate = 100
     emitterCellEmitterCell.contents = emitterConfiguration.contents
+    emitterCellEmitterCell.emissionRange = emitterConfiguration.emissionRange
+    emitterCellEmitterCell.lifetime = 10
+    emitterCellEmitterCell.spin = 4
+    emitterCellEmitterCell.spinRange = 8
+    emitterCellEmitterCell.scale = 0.9
     emitterCellEmitterCell.color = UIColor(emitterConfiguration.color).cgColor
-    emitterLayer.scale = Float(emitterConfiguration.scale)
-    emitterLayer.lifetime = Float(emitterConfiguration.lifetime)
 
     emitterCellEmitterCell.scaleRange = emitterConfiguration.scaleRange
     emitterCellEmitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
-    emitterCellEmitterCell.spin = emitterConfiguration.spin
-    emitterCellEmitterCell.spinRange = emitterConfiguration.spinRange
-    emitterCellEmitterCell.velocity = emitterConfiguration.velocity
-    emitterCellEmitterCell.velocityRange = emitterConfiguration.velocityRange
-    emitterCellEmitterCell.xAcceleration = emitterConfiguration.xAcceleration
-    emitterCellEmitterCell.zAcceleration = emitterConfiguration.zAcceleration
-    emitterCellEmitterCell.emissionRange = emitterConfiguration.emissionRange
-    emitterCellEmitterCell.birthRate = Float(emitterConfiguration.birthRate)
+    emitterCellEmitterCell.yAcceleration = emitterConfiguration.yAcceleration
 
+//    emitterCellEmitterCell.birthRate = 10 // Float(emitterConfiguration.birthRate)
     emitterCellEmitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
 
+    emitterCellEmitterCell.setValue(emitterConfiguration.particleType.rawValue,
+                                    forKey: "particleType")
+    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationRange),
+                                    forKey: "orientationRange")
+    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationLongitude),
+                                    forKey: "orientationLongitude")
+    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationLatitude),
+                                    forKey: "orientationLatitude")
 
     emitterLayer.emitterCells = [emitterCellEmitterCell]
-    emitterLayer.setValue(behaviors, forKey: "emitterBehaviors")
+//    emitterLayer.beginTime = CACurrentMediaTime()
   }
+
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    guard emitterLayer.superlayer == nil else { return }
-    layer.addSublayer(emitterLayer)
-    emitterLayer.birthRate = 1
-    backgroundColor = .systemYellow
-    emitterLayer.position = center
 
-    emitterCellEmitterCell.name = "Emitter Cell"
-//    emitterCellEmitterCell.contents = UIImage(named: "default-emitter")?.cgImage
-//    emitterCellEmitterCell.color = UIColor.red.cgColor
-//    emitterCellEmitterCell.scale = 1
-//    emitterCellEmitterCell.scaleRange = 0.2
-//    emitterCellEmitterCell.scaleSpeed = 0.03
-//    emitterCellEmitterCell.spin = 0.3
-//    emitterCellEmitterCell.spinRange = 0.1
-//    emitterCellEmitterCell.velocity = 10
-//    emitterCellEmitterCell.velocityRange = 8
-//    emitterCellEmitterCell.xAcceleration = 0.2
-//    emitterCellEmitterCell.zAcceleration = 50
-//    emitterCellEmitterCell.emissionRange = 6.28
-//    emitterCellEmitterCell.birthRate = 10
-//    emitterCellEmitterCell.lifetime = 5
-//    emitterCellEmitterCell.lifetimeRange = 4
-//    emitterCellEmitterCell.redRange = 0.3
-//    emitterCellEmitterCell.redSpeed = 0.5
-//    emitterCellEmitterCell.greenRange = 0.3
-//    emitterCellEmitterCell.greenSpeed = 0.5
-//    emitterCellEmitterCell.blueRange = 0.3
-//    emitterCellEmitterCell.blueSpeed = 0.5
-//    emitterCellEmitterCell.alphaRange = 0.9
-//    emitterCellEmitterCell.alphaSpeed = 0.5
-    emitterCellEmitterCell.fillMode = .forwards
-
-    emitterLayer.emitterCells = [emitterCellEmitterCell]
-
+    backgroundColor = .darkGray
+    emitterLayer.frame = bounds
+    emitterLayer.scale = 1
   }
 
   func createBehavior(type: String) -> NSObject {
@@ -178,7 +198,7 @@ struct EmitterViewRepresentable: UIViewRepresentable {
   }
 
   func updateUIView(_ uiView: EmitterView, context: Context) {
-
+    
   }
 
 }

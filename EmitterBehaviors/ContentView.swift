@@ -12,9 +12,9 @@ struct ContentView: View {
 
   let store: Store<AppState, AppAction>
   var body: some View {
-    HStack {
-      EmitterViewRepresentable(store: store)
+    NavigationView {
       ConfigurationView(store: store)
+      EmitterViewRepresentable(store: store)
     }
 
   }
