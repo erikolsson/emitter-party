@@ -46,12 +46,23 @@ enum ParticleType: String, CaseIterable, Identifiable, Equatable {
   case plane
 
 }
-struct EmitterCell: Equatable {
-
+struct EmitterCell: Identifiable, Equatable {
+  var id = UUID()
   var particleType = ParticleType.plane
   var contents = ParticleContents.rectangle
   var color: Color = .purple
   var alpha: CGFloat = 1
+
+  var alphaSpeed: CGFloat = 1
+  var alphaRange: CGFloat = 0
+
+  var redSpeed: CGFloat = 0
+  var redRange: CGFloat = 0
+  var greenSpeed: CGFloat = 0
+  var greenRange: CGFloat = 0
+  var blueSpeed: CGFloat = 0
+  var blueRange: CGFloat = 0
+  
   var scale: CGFloat = 1
   var scaleRange: CGFloat = 0.2
   var scaleSpeed: CGFloat = 0.03

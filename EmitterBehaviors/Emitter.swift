@@ -25,13 +25,31 @@ struct Emitter: Equatable {
   var emitterPosition: CGPoint = CGPoint(x: 500, y: 0)
   var emitterSize: CGPoint = CGPoint(x: 500, y: 0)
   var birthRate: CGFloat = 1
+  var emitterCells: IdentifiedArrayOf<EmitterCell> = [
+    EmitterCell()
+  ]
 }
 
 enum EmitterAction: Equatable {
+  case emitterCell(id: UUID, action: EmitterCellAction)
   case bindingAction(BindingAction<Emitter>)
+  case addEmitterCell
 }
 
-let emitterReducer = Reducer<Emitter, EmitterAction, AppEnvironment> {
-  (state, action, env) -> Effect<EmitterAction, Never> in
-  return .none
-}.binding(action: /EmitterAction.bindingAction)
+let emitterReducer = Reducer<Emitter, EmitterAction, AppEnvironment>
+  .combine(
+    emitterCellReducer.forEach(state: \.emitterCells,
+                               action: /EmitterAction.emitterCell(id:action:), environment: {$0}),
+    Reducer({
+      (state, action, env) -> Effect<EmitterAction, Never> in
+      switch action {
+      case .addEmitterCell:
+        let newEmitter = EmitterCell()
+        state.emitterCells.insert(newEmitter, at: 0)
+        return .none
+      default:
+        return .none
+      }
+    })
+  )
+  .binding(action: /EmitterAction.bindingAction)

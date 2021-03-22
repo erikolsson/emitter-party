@@ -21,15 +21,10 @@ struct ConfigurationView: View {
                                                       action: AppAction.emitter))
         }
 
-        Section(header: Text("Emitter Cells"), content: {
-          EmitterCellConfigurationView(store: store.scope(state: \.emitterCell,
-                                                      action: AppAction.emitterCell))
-        })
-
         Section(header: Text("Behaviors")) {
-          Button("Add New") {
+          Button("Add Behavior") {
             viewStore.send(.add)
-          }
+          }.buttonStyle(BorderlessButtonStyle())
           ForEachStore(
             self.store.scope(state: \.behaviors,
                                         action: AppAction.behavior(id:action:))
@@ -46,14 +41,19 @@ struct ConfigurationView: View {
 
 struct NumericTextField: View {
 
+
   let minValue: CGFloat
   let maxValue: CGFloat
 
   @Binding var value: CGFloat
-
+  var allowsDecimals = false
   var body: some View {
-    TextField("A", text: .init(get: {
-      return String(format: "%0.1f", value)
+    TextField("0.0", text: .init(get: {
+      if allowsDecimals {
+        return String(format: "%0.1f", value)
+      } else {
+        return String(format: "%0.0f", value)
+      }
     }, set: { (str) in
       self.value = CGFloat(Double(str) ?? 0)
     })).keyboardType(.numbersAndPunctuation)
@@ -79,23 +79,49 @@ struct Vector3View: View {
   @Binding var value: Vector3
 
   var body: some View {
-    VStack(alignment: .leading) {
+    HStack {
+      Spacer()
+      
       Text(label).font(.subheadline)
         .padding([.bottom], 2)
 
+      Text("X").font(.subheadline)
+      NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
+      Spacer()
+      Text("Y").font(.subheadline)
+      NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
+      Spacer()
+      Text("Z").font(.subheadline)
+      NumericTextField(minValue: 0, maxValue: 10, value: $value.z)
+    }
+  }
+
+}
+
+struct SliderWithTextField: View {
+  let title: String
+  @Binding var value: CGFloat
+  let minValue: CGFloat
+  let maxValue: CGFloat
+
+  var body: some View {
+    VStack(alignment: .leading) {
+
       HStack {
-        Text("X").font(.subheadline)
-        NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
         Spacer()
-        Text("Y").font(.subheadline)
-        NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
-        Spacer()
-        Text("Z").font(.subheadline)
-        NumericTextField(minValue: 0, maxValue: 10, value: $value.z)
+        Text(title).font(.subheadline)
+        Slider(value: $value,
+               in: minValue...maxValue) {
+          Text("Scale Speed")
+        }
+        .frame(width: 200)
+        NumericTextField(minValue: 0, maxValue: 1, value: $value, allowsDecimals: true)
       }
     }
   }
+
 }
+
 
 struct CGFloatView: View {
   let label: String
@@ -146,7 +172,8 @@ struct BehaviorSettingsView: View {
             }
           }
           Spacer()
-          Button("X", action: { viewStore.send(.remove) })
+          Button("Remove", action: { viewStore.send(.remove) })
+            .buttonStyle(BorderlessButtonStyle())
         }
         Divider()
         Group {
@@ -157,21 +184,27 @@ struct BehaviorSettingsView: View {
         }
 
         if viewStore.showFrequency {
-          CGFloatView(label: "Frequency",
-                      value: viewStore.binding(keyPath: \.frequency,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Frequency",
+                              value: viewStore.binding(keyPath: \.frequency,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: 1)
         }
 
         if viewStore.showDrag {
-          CGFloatView(label: "Drag",
-                      value: viewStore.binding(keyPath: \.drag,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Drag",
+                              value: viewStore.binding(keyPath: \.drag,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: 1)
         }
 
         if viewStore.showRotation {
-          CGFloatView(label: "Rotation",
-                      value: viewStore.binding(keyPath: \.rotation,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Rotation",
+                              value: viewStore.binding(keyPath: \.rotation,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: .pi * 2)
         }
 
         if viewStore.showPreservesDepth {
@@ -191,15 +224,19 @@ struct BehaviorSettingsView: View {
         }
 
         if viewStore.showStiffness {
-          CGFloatView(label: "Stiffness",
-                      value: viewStore.binding(keyPath: \.stiffness,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Stiffness",
+                              value: viewStore.binding(keyPath: \.stiffness,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: 30)
         }
 
         if viewStore.showRadius {
-          CGFloatView(label: "Radius",
-                      value: viewStore.binding(keyPath: \.radius,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Radius",
+                              value: viewStore.binding(keyPath: \.radius,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: 300)
         }
 
         if viewStore.showPosition {
@@ -209,9 +246,11 @@ struct BehaviorSettingsView: View {
         }
 
         if viewStore.showFalloff {
-          CGFloatView(label: "Falloff",
-                      value: viewStore.binding(keyPath: \.falloff,
-                                               send: EmitterBehaviorAction.bindingAction))
+          SliderWithTextField(title: "Falloff",
+                              value: viewStore.binding(keyPath: \.falloff,
+                                                       send: EmitterBehaviorAction.bindingAction),
+                              minValue: 0,
+                              maxValue: 2)
         }
         }
       }

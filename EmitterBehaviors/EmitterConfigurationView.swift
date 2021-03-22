@@ -13,7 +13,6 @@ struct EmitterConfigurationView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-
       VStack(alignment: .leading, spacing: 20) {
         Menu(viewStore.emitterShape.rawValue.capitalized) {
           ForEach(EmitterShape.allCases, id: \.self) { type in
@@ -34,6 +33,23 @@ struct EmitterConfigurationView: View {
         CGFloatView(label: "Birthrate",
                     value: viewStore.binding(keyPath: \.birthRate,
                                              send: EmitterAction.bindingAction))
+
+        Divider()
+
+        HStack {
+          Text("Emitters").font(.title)
+          Spacer()
+          Button("Add Emitter") {
+            viewStore.send(.addEmitterCell)
+          }.buttonStyle(BorderlessButtonStyle())
+        }
+        Divider()
+
+        ForEachStore(store.scope(state: \.emitterCells, action: EmitterAction.emitterCell(id:action:))) { (store) in
+          DisclosureGroup("Emitter") {
+            EmitterCellConfigurationView(store: store)
+          }
+        }
       }
       .padding(.all, 10)
     }

@@ -82,16 +82,22 @@ class EmitterView: UIView {
         self?.behaviors = behaviors
       }.store(in: &cancellables)
 
-    viewStore.publisher.emitterCell
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] (emitterConfiguration) in
-        self?.configureEmitterCell(emitterConfiguration: emitterConfiguration)
-      }.store(in: &cancellables)
+//    viewStore.publisher.emitterCell
+//      .receive(on: DispatchQueue.main)
+//      .sink { [weak self] (emitterConfiguration) in
+//        self?.configureEmitterCell(emitterConfiguration: emitterConfiguration)
+//      }.store(in: &cancellables)
 
     viewStore.publisher.emitter
       .receive(on: DispatchQueue.main)
       .sink { [weak self] (val) in
         self?.configureEmitter(configuration: val)
+      }.store(in: &cancellables)
+
+    viewStore.publisher.emitter
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] emitter in
+        self?.configureEmitter(configuration: emitter)
       }.store(in: &cancellables)
   }
 
@@ -106,53 +112,111 @@ class EmitterView: UIView {
 
   func configureEmitter(configuration: Emitter) {
     emitterLayer.emitterShape = CAEmitterLayerEmitterShape(rawValue: configuration.emitterShape.rawValue)
-    emitterLayer.emitterSize = CGSize(width: configuration.emitterSize.x, height: configuration.emitterSize.y)
+    emitterLayer.emitterSize = CGSize(width: configuration.emitterSize.x,
+                                      height: configuration.emitterSize.y)
     emitterLayer.emitterPosition = configuration.emitterPosition
     emitterLayer.birthRate = Float(configuration.birthRate)
+
+    var emitterCells: [CAEmitterCell] = []
+    for emitterConfiguration in configuration.emitterCells {
+      let emitterCell = CAEmitterCell()
+
+      emitterCell.name = "\(emitterConfiguration.id)"
+      emitterCell.beginTime = 0.1
+      emitterCell.contents = emitterConfiguration.contents.image?.cgImage
+      emitterCell.emissionRange = emitterConfiguration.emissionRange
+      emitterCell.spin = emitterConfiguration.spin
+      emitterCell.spinRange = emitterConfiguration.spinRange
+
+      emitterCell.scale = emitterConfiguration.scale
+      emitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
+
+      emitterCell.velocity = emitterConfiguration.velocity
+      emitterCell.velocityRange = emitterConfiguration.velocityRange
+      emitterCell.birthRate = Float(emitterConfiguration.birthRate)
+      emitterCell.scaleRange = emitterConfiguration.scaleRange
+      emitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
+      emitterCell.xAcceleration = emitterConfiguration.acceleration.x
+      emitterCell.yAcceleration = emitterConfiguration.acceleration.y
+      emitterCell.zAcceleration = emitterConfiguration.acceleration.z
+      emitterCell.velocity = emitterConfiguration.velocity
+      emitterCell.velocityRange = emitterConfiguration.velocityRange
+      emitterCell.alphaSpeed = Float(emitterConfiguration.alphaSpeed)
+      emitterCell.alphaRange = Float(emitterConfiguration.alphaRange)
+      emitterCell.redRange = Float(emitterConfiguration.redRange)
+      emitterCell.redSpeed = Float(emitterConfiguration.redSpeed)
+      emitterCell.greenRange = Float(emitterConfiguration.greenRange)
+      emitterCell.greenSpeed = Float(emitterConfiguration.greenSpeed)
+      emitterCell.blueRange = Float(emitterConfiguration.blueRange)
+      emitterCell.blueSpeed = Float(emitterConfiguration.blueSpeed)
+      emitterCell.lifetime = Float(emitterConfiguration.lifetime)
+      emitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
+
+      emitterCell.setValue(emitterConfiguration.particleType.rawValue,
+                                      forKey: "particleType")
+      emitterCell.setValue(Double(emitterConfiguration.orientationRange),
+                                      forKey: "orientationRange")
+      emitterCell.setValue(Double(emitterConfiguration.orientationLongitude),
+                                      forKey: "orientationLongitude")
+      emitterCell.setValue(Double(emitterConfiguration.orientationLatitude),
+                                      forKey: "orientationLatitude")
+
+      emitterCells.append(emitterCell)
+    }
 
     if emitterLayer.superlayer == nil {
       layer.addSublayer(emitterLayer)
     }
+
+    emitterLayer.emitterCells = emitterCells
   }
 
-  var emitterCell: CAEmitterCell?
+
   func configureEmitterCell(emitterConfiguration: EmitterCell) {
 
-    let emitterCellEmitterCell = CAEmitterCell()
-    self.emitterCell = emitterCellEmitterCell
+    let emitterCell = CAEmitterCell()
 
-    emitterCellEmitterCell.name = "acell"
-    emitterCellEmitterCell.beginTime = 0.1
-    emitterCellEmitterCell.birthRate = 100
-    emitterCellEmitterCell.contents = emitterConfiguration.contents.image?.cgImage
-    emitterCellEmitterCell.emissionRange = emitterConfiguration.emissionRange
-    emitterCellEmitterCell.lifetime = 10
-    emitterCellEmitterCell.spin = 4
-    emitterCellEmitterCell.spinRange = 8
-    emitterCellEmitterCell.scale = emitterConfiguration.scale
-    emitterCellEmitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
+    emitterCell.name = "acell"
+    emitterCell.beginTime = 0.1
+    emitterCell.contents = emitterConfiguration.contents.image?.cgImage
+    emitterCell.emissionRange = emitterConfiguration.emissionRange
+    emitterCell.spin = emitterConfiguration.spin
+    emitterCell.spinRange = emitterConfiguration.spinRange
 
-    emitterCellEmitterCell.scaleRange = emitterConfiguration.scaleRange
-    emitterCellEmitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
-    emitterCellEmitterCell.xAcceleration = emitterConfiguration.acceleration.x
-    emitterCellEmitterCell.yAcceleration = emitterConfiguration.acceleration.y
-    emitterCellEmitterCell.zAcceleration = emitterConfiguration.acceleration.z
+    emitterCell.scale = emitterConfiguration.scale
+    emitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
 
-    
-//    emitterCellEmitterCell.birthRate = 10 // Float(emitterConfiguration.birthRate)
-    emitterCellEmitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
+    emitterCell.velocity = emitterConfiguration.velocity
+    emitterCell.velocityRange = emitterConfiguration.velocityRange
+    emitterCell.birthRate = Float(emitterConfiguration.birthRate)
+    emitterCell.scaleRange = emitterConfiguration.scaleRange
+    emitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
+    emitterCell.xAcceleration = emitterConfiguration.acceleration.x
+    emitterCell.yAcceleration = emitterConfiguration.acceleration.y
+    emitterCell.zAcceleration = emitterConfiguration.acceleration.z
+    emitterCell.velocity = emitterConfiguration.velocity
+    emitterCell.velocityRange = emitterConfiguration.velocityRange
+    emitterCell.alphaSpeed = Float(emitterConfiguration.alphaSpeed)
+    emitterCell.alphaRange = Float(emitterConfiguration.alphaRange)
+    emitterCell.redRange = Float(emitterConfiguration.redRange)
+    emitterCell.redSpeed = Float(emitterConfiguration.redSpeed)
+    emitterCell.greenRange = Float(emitterConfiguration.greenRange)
+    emitterCell.greenSpeed = Float(emitterConfiguration.greenSpeed)
+    emitterCell.blueRange = Float(emitterConfiguration.blueRange)
+    emitterCell.blueSpeed = Float(emitterConfiguration.blueSpeed)
+    emitterCell.lifetime = Float(emitterConfiguration.lifetime)
+    emitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
 
-    emitterCellEmitterCell.setValue(emitterConfiguration.particleType.rawValue,
+    emitterCell.setValue(emitterConfiguration.particleType.rawValue,
                                     forKey: "particleType")
-    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationRange),
+    emitterCell.setValue(Double(emitterConfiguration.orientationRange),
                                     forKey: "orientationRange")
-    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationLongitude),
+    emitterCell.setValue(Double(emitterConfiguration.orientationLongitude),
                                     forKey: "orientationLongitude")
-    emitterCellEmitterCell.setValue(Double(emitterConfiguration.orientationLatitude),
+    emitterCell.setValue(Double(emitterConfiguration.orientationLatitude),
                                     forKey: "orientationLatitude")
 
-    emitterLayer.emitterCells = [emitterCellEmitterCell]
-//    emitterLayer.beginTime = CACurrentMediaTime()
+    emitterLayer.emitterCells = [emitterCell]
   }
 
 

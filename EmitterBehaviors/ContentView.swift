@@ -12,11 +12,10 @@ struct ContentView: View {
 
   let store: Store<AppState, AppAction>
   var body: some View {
-    NavigationView {
+    HStack {
       ConfigurationView(store: store)
-        .navigationBarHidden(true)
+        .frame(width: 440)
       EmitterViewRepresentable(store: store)
-        .navigationBarHidden(true)
     }
 
   }

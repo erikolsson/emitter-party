@@ -10,10 +10,7 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
   var emitter = Emitter()
-  var emitterCell: EmitterCell = EmitterCell()
-  var behaviors: IdentifiedArrayOf<EmitterBehavior> = [
-//    EmitterBehavior(behaviorType: .wave)
-  ]
+  var behaviors: IdentifiedArrayOf<EmitterBehavior> = []
 }
 
 enum AppAction: Equatable {
@@ -28,7 +25,6 @@ struct AppEnvironment {}
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   emitterBehaviorReducer.forEach(state: \.behaviors,
                                  action: /AppAction.behavior(id:action:), environment: {$0}),
-  emitterCellReducer.pullback(state: \.emitterCell, action: /AppAction.emitterCell, environment: {$0}),
   emitterReducer.pullback(state: \.emitter,
                           action: /AppAction.emitter,
                           environment: {$0}),
