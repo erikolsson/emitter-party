@@ -6,16 +6,24 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
+
+  let store: Store<AppState, AppAction>
+  var body: some View {
+    HStack {
+      EmitterViewRepresentable(store: store)
+      ConfigurationView(store: store)
     }
+
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView(store: Store(initialState: AppState(),
+                             reducer: appReducer,
+                             environment: AppEnvironment()))
+  }
 }

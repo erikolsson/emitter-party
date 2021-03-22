@@ -3,23 +3,36 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		037E09A4260885C800CBBCA0 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A3260885C800CBBCA0 /* Emitter.swift */; };
+		037E09A72608884900CBBCA0 /* EmitterConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A62608884900CBBCA0 /* EmitterConfigurationView.swift */; };
 		03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */; };
 		03D9A6252607D5A300B42C8E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6242607D5A300B42C8E /* ContentView.swift */; };
 		03D9A6272607D5A300B42C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D9A6262607D5A300B42C8E /* Assets.xcassets */; };
 		03D9A62A2607D5A300B42C8E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D9A6292607D5A300B42C8E /* Preview Assets.xcassets */; };
+		03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */; };
+		03D9A6372607D77400B42C8E /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6362607D77400B42C8E /* ConfigurationView.swift */; };
+		03D9A63B2607DC4600B42C8E /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 03D9A63A2607DC4600B42C8E /* ComposableArchitecture */; };
+		03D9A63E2607DC5400B42C8E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A63D2607DC5400B42C8E /* AppState.swift */; };
+		03D9A6462607DFE300B42C8E /* EmitterBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6452607DFE300B42C8E /* EmitterBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		037E09A3260885C800CBBCA0 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
+		037E09A62608884900CBBCA0 /* EmitterConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfigurationView.swift; sourceTree = "<group>"; };
 		03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmitterBehaviors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterBehaviorsApp.swift; sourceTree = "<group>"; };
 		03D9A6242607D5A300B42C8E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		03D9A6262607D5A300B42C8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03D9A6292607D5A300B42C8E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03D9A62B2607D5A300B42C8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterViewRepresentable.swift; sourceTree = "<group>"; };
+		03D9A6362607D77400B42C8E /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		03D9A63D2607DC5400B42C8E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		03D9A6452607DFE300B42C8E /* EmitterBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D9A63B2607DC4600B42C8E /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				03D9A6212607D5A300B42C8E /* EmitterBehaviors */,
-				03D9A6202607D5A300B42C8E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -47,16 +60,24 @@
 				03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		03D9A6212607D5A300B42C8E /* EmitterBehaviors */ = {
 			isa = PBXGroup;
 			children = (
+				03D9A63D2607DC5400B42C8E /* AppState.swift */,
 				03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */,
 				03D9A6242607D5A300B42C8E /* ContentView.swift */,
 				03D9A6262607D5A300B42C8E /* Assets.xcassets */,
 				03D9A62B2607D5A300B42C8E /* Info.plist */,
 				03D9A6282607D5A300B42C8E /* Preview Content */,
+				03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */,
+				03D9A6362607D77400B42C8E /* ConfigurationView.swift */,
+				037E09A62608884900CBBCA0 /* EmitterConfigurationView.swift */,
+				03D9A6202607D5A300B42C8E /* Products */,
+				03D9A6452607DFE300B42C8E /* EmitterBehavior.swift */,
+				037E09A3260885C800CBBCA0 /* Emitter.swift */,
 			);
 			path = EmitterBehaviors;
 			sourceTree = "<group>";
@@ -85,6 +106,9 @@
 			dependencies = (
 			);
 			name = EmitterBehaviors;
+			packageProductDependencies = (
+				03D9A63A2607DC4600B42C8E /* ComposableArchitecture */,
+			);
 			productName = EmitterBehaviors;
 			productReference = 03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +136,9 @@
 				Base,
 			);
 			mainGroup = 03D9A6162607D5A300B42C8E;
+			packageReferences = (
+				03D9A6392607DC4600B42C8E /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 03D9A6202607D5A300B42C8E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,7 +166,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D9A6252607D5A300B42C8E /* ContentView.swift in Sources */,
+				037E09A4260885C800CBBCA0 /* Emitter.swift in Sources */,
+				03D9A63E2607DC5400B42C8E /* AppState.swift in Sources */,
+				03D9A6372607D77400B42C8E /* ConfigurationView.swift in Sources */,
 				03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */,
+				03D9A6462607DFE300B42C8E /* EmitterBehavior.swift in Sources */,
+				037E09A72608884900CBBCA0 /* EmitterConfigurationView.swift in Sources */,
+				03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +313,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.traduko.EmitterBehaviors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -302,7 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.traduko.EmitterBehaviors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
@@ -328,6 +361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		03D9A6392607DC4600B42C8E /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03D9A63A2607DC4600B42C8E /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03D9A6392607DC4600B42C8E /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03D9A6172607D5A300B42C8E /* Project object */;
 }
