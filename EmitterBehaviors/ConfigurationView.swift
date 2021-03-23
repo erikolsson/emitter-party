@@ -246,7 +246,6 @@ struct BehaviorSettingsView: View {
       .padding(.all, 10)
     }
     }
-    .padding([.top, .bottom], 10)
   }
 
 }

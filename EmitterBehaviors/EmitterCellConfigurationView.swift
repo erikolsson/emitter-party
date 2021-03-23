@@ -27,7 +27,6 @@ struct EmitterCellConfigurationView: View {
       ColorConfigurationView(store: store)
       AlphaConfigurationView(store: store)
     }
-    .padding([.top, .bottom], 10)
   }
 }
 

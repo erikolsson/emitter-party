@@ -38,9 +38,9 @@ extension EmitterBehaviorConfiguration {
       object.setValue(preservesDepth, forKey: "preservesDepth")
     case .attractor:
       object.setValue(attractorType.rawValue, forKey: "attractorType")
-      object.setValue(NSNumber(value: stiffness), forKey: "stiffness")
-      object.setValue(NSNumber(value: radius), forKey: "radius")
-      object.setValue(NSNumber(value: falloff), forKey: "falloff")
+      object.setValue(stiffness, forKey: "stiffness")
+      object.setValue(radius, forKey: "radius")
+      object.setValue(falloff, forKey: "falloff")
       object.setValue(CGPoint(x: position.x, y: position.y), forKey: "position")
       object.setValue(Double(position.z), forKey: "zPosition")
     }
