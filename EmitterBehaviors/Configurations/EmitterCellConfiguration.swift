@@ -46,7 +46,7 @@ enum ParticleType: String, CaseIterable, Identifiable, Equatable {
   case plane
 
 }
-struct EmitterCell: Identifiable, Equatable {
+struct EmitterCellConfiguration: Identifiable, Equatable {
   var id = UUID()
   var particleType = ParticleType.plane
   var contents = ParticleContents.rectangle
@@ -82,16 +82,16 @@ struct EmitterCell: Identifiable, Equatable {
 
 enum EmitterCellAction: Equatable {
   case remove
-  case bindingAction(BindingAction<EmitterCell>)
+  case bindingAction(BindingAction<EmitterCellConfiguration>)
 }
 
-let emitterCellReducer = Reducer<EmitterCell, EmitterCellAction, AppEnvironment> {
+let emitterCellReducer = Reducer<EmitterCellConfiguration, EmitterCellAction, AppEnvironment> {
   (state, action, _) -> Effect<EmitterCellAction, Never> in
   return .none
 }
 .binding(action: /EmitterCellAction.bindingAction)
 
-extension EmitterCell {
+extension EmitterCellConfiguration {
   var showOrientations: Bool {
     return particleType == .plane
   }

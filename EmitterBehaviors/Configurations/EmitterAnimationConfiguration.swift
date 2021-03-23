@@ -17,7 +17,7 @@ enum EmitterAnimationKey: String, Equatable, Identifiable, CaseIterable {
 }
 
 
-struct EmitterAnimation: Equatable, Identifiable {
+struct EmitterAnimationConfiguration: Equatable, Identifiable {
   let id = UUID()
   var fromValue: CGFloat = 1
   var toValue: CGFloat = 0
@@ -27,10 +27,10 @@ struct EmitterAnimation: Equatable, Identifiable {
 
 enum EmitterAnimationAction: Equatable {
   case remove
-  case bindingAction(BindingAction<EmitterAnimation>)
+  case bindingAction(BindingAction<EmitterAnimationConfiguration>)
 }
 
-let emitterAnimationReducer = Reducer<EmitterAnimation, EmitterAnimationAction, AppEnvironment> { (state, action, env) -> Effect<EmitterAnimationAction, Never> in
+let emitterAnimationReducer = Reducer<EmitterAnimationConfiguration, EmitterAnimationAction, AppEnvironment> { (state, action, env) -> Effect<EmitterAnimationAction, Never> in
   return .none
 }
 .binding(action: /EmitterAnimationAction.bindingAction)

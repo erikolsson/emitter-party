@@ -17,17 +17,17 @@ enum SelectedComponent: Equatable {
 }
 
 struct AppState: Equatable {
-  var emitter = Emitter()
-  var behaviors: IdentifiedArrayOf<EmitterBehavior> = []
+  var emitter = EmitterConfiguration()
+  var behaviors: IdentifiedArrayOf<EmitterBehaviorConfiguration> = []
 
   var selectedComponent = SelectedComponent.none
 }
 
 enum AppAction: Equatable {
-  case selectBehavior(EmitterBehavior.ID)
+  case selectBehavior(EmitterBehaviorConfiguration.ID)
   case selectEmitter
-  case selectEmitterCell(EmitterCell.ID)
-  case behavior(id: EmitterBehavior.ID, action: EmitterBehaviorAction)
+  case selectEmitterCell(EmitterCellConfiguration.ID)
+  case behavior(id: EmitterBehaviorConfiguration.ID, action: EmitterBehaviorAction)
   case emitterCell(EmitterCellAction)
   case emitter(EmitterAction)
   case add
@@ -57,7 +57,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
       
     case .add:
-      state.behaviors.append(EmitterBehavior(behaviorType: .wave))
+      state.behaviors.append(EmitterBehaviorConfiguration(behaviorType: .wave))
       return .none
 
     case let .behavior(id: id, action: .remove):

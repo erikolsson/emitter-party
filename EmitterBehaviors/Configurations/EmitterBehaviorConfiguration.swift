@@ -51,7 +51,7 @@ struct Vector3: Equatable {
   static let zero = { return Vector3(x: 0, y: 0, z: 0) }()
 }
 
-struct EmitterBehavior: Equatable, Identifiable {
+struct EmitterBehaviorConfiguration: Equatable, Identifiable {
 
   let id = UUID()
   var behaviorType: EmitterBehaviorType
@@ -72,11 +72,11 @@ struct EmitterBehavior: Equatable, Identifiable {
 }
 
 enum EmitterBehaviorAction: Equatable {
-  case bindingAction(BindingAction<EmitterBehavior>)
+  case bindingAction(BindingAction<EmitterBehaviorConfiguration>)
   case remove
 }
 
-let emitterBehaviorReducer = Reducer<EmitterBehavior, EmitterBehaviorAction, AppEnvironment>{
+let emitterBehaviorReducer = Reducer<EmitterBehaviorConfiguration, EmitterBehaviorAction, AppEnvironment>{
   (state, action, _) -> Effect<EmitterBehaviorAction, Never> in
 
   return .none
@@ -84,7 +84,7 @@ let emitterBehaviorReducer = Reducer<EmitterBehavior, EmitterBehaviorAction, App
 .binding(action: /EmitterBehaviorAction.bindingAction)
 .debug()
 
-extension EmitterBehavior {
+extension EmitterBehaviorConfiguration {
 
   var showForce: Bool {
     switch self.behaviorType {

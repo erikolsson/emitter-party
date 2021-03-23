@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 import Combine
 
-extension EmitterBehavior {
+extension EmitterBehaviorConfiguration {
 
   var emitterTypeName: String {
     switch self.behaviorType {
@@ -87,7 +87,7 @@ class EmitterView: UIView {
 
   let emitterLayer = CAEmitterLayer()
 
-  func configureEmitter(configuration: Emitter, behaviors: [NSObject]) {
+  func configureEmitter(configuration: EmitterConfiguration, behaviors: [NSObject]) {
     emitterLayer.emitterShape = CAEmitterLayerEmitterShape(rawValue: configuration.emitterShape.rawValue)
     emitterLayer.emitterSize = CGSize(width: configuration.emitterSize.x,
                                       height: configuration.emitterSize.y)
@@ -162,7 +162,7 @@ class EmitterView: UIView {
   }
 
 
-  func configureEmitterCell(emitterConfiguration: EmitterCell) {
+  func configureEmitterCell(emitterConfiguration: EmitterCellConfiguration) {
 
     let emitterCell = CAEmitterCell()
     emitterCell.name = "\(emitterConfiguration.id)"

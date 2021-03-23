@@ -20,27 +20,27 @@ enum EmitterShape: String, CaseIterable, Identifiable, Equatable {
   case sphere
 }
 
-struct Emitter: Equatable {
+struct EmitterConfiguration: Equatable {
   var emitterShape = EmitterShape.rectangle
   var emitterPosition: CGPoint = CGPoint(x: 500, y: 0)
   var emitterSize: CGPoint = CGPoint(x: 500, y: 0)
   var birthRate: CGFloat = 1
-  var emitterCells: IdentifiedArrayOf<EmitterCell> = [
-    EmitterCell()
+  var emitterCells: IdentifiedArrayOf<EmitterCellConfiguration> = [
+    EmitterCellConfiguration()
   ]
 
-  var animations: IdentifiedArrayOf<EmitterAnimation> = []
+  var animations: IdentifiedArrayOf<EmitterAnimationConfiguration> = []
 }
 
 enum EmitterAction: Equatable {
   case emitterCell(id: UUID, action: EmitterCellAction)
   case animation(id: UUID, action: EmitterAnimationAction)
-  case bindingAction(BindingAction<Emitter>)
+  case bindingAction(BindingAction<EmitterConfiguration>)
   case addEmitterCell
   case addAnimation
 }
 
-let emitterReducer = Reducer<Emitter, EmitterAction, AppEnvironment>
+let emitterReducer = Reducer<EmitterConfiguration, EmitterAction, AppEnvironment>
   .combine(
     emitterCellReducer.forEach(state: \.emitterCells,
                                action: /EmitterAction.emitterCell(id:action:), environment: {$0}),
@@ -50,12 +50,12 @@ let emitterReducer = Reducer<Emitter, EmitterAction, AppEnvironment>
       (state, action, env) -> Effect<EmitterAction, Never> in
       switch action {
       case .addEmitterCell:
-        let newEmitter = EmitterCell()
+        let newEmitter = EmitterCellConfiguration()
         state.emitterCells.insert(newEmitter, at: 0)
         return .none
 
       case .addAnimation:
-        state.animations.insert(EmitterAnimation(), at: 0)
+        state.animations.insert(EmitterAnimationConfiguration(), at: 0)
         return .none
 
       case let .animation(id: id, action: .remove):

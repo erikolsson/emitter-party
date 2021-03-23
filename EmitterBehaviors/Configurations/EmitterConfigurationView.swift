@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct EmitterConfigurationView: View {
-  let store: Store<Emitter, EmitterAction>
+  let store: Store<EmitterConfiguration, EmitterAction>
 
   var body: some View {
     WithViewStore(store) { viewStore in

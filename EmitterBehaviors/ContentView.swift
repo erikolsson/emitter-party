@@ -16,7 +16,6 @@ struct ContentView: View {
       
       NavigationView {
       ComponentListView(store: store)
-        .frame(width: 300)
       }.zIndex(1)
       
       EmitterViewRepresentable(store: store)

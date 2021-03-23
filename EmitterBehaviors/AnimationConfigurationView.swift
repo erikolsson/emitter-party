@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct AnimationConfigurationView: View {
 
-  let store: Store<EmitterAnimation, EmitterAnimationAction>
+  let store: Store<EmitterAnimationConfiguration, EmitterAnimationAction>
   var body: some View {
     List {
 

@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 struct EmitterCellConfigurationView: View {
 
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
   var body: some View {
     List {
       WithViewStore(store) { viewStore in
@@ -32,7 +32,7 @@ struct EmitterCellConfigurationView: View {
 }
 
 struct ScaleConfigurationView: View {
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
   var body: some View {
     WithViewStore(store) { viewStore in
       VStack {
@@ -54,7 +54,7 @@ struct ScaleConfigurationView: View {
 }
 
 struct AlphaConfigurationView: View {
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
   var body: some View {
     WithViewStore(store) { viewStore in
       VStack {
@@ -109,7 +109,7 @@ struct AlphaConfigurationView: View {
 
 struct OrientationView: View {
 
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
 
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -137,7 +137,7 @@ struct OrientationView: View {
 
 struct ParticleConfigurationView: View {
 
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -167,7 +167,7 @@ struct ParticleConfigurationView: View {
 
 struct VelocityConfigurationView: View {
 
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
 
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -205,7 +205,7 @@ struct VelocityConfigurationView: View {
 }
 
 struct ColorConfigurationView: View {
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
 
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -216,7 +216,7 @@ struct ColorConfigurationView: View {
 }
 
 struct BirthRateLifetimeConfigurationView: View {
-  let store: Store<EmitterCell, EmitterCellAction>
+  let store: Store<EmitterCellConfiguration, EmitterCellAction>
   var body: some View {
     WithViewStore(store) { viewStore in
       SliderWithTextField(title: "Birthrate",

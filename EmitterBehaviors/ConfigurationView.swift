@@ -143,7 +143,7 @@ struct CGPointView: View {
 
 struct BehaviorSettingsView: View {
 
-  let store: Store<EmitterBehavior, EmitterBehaviorAction>
+  let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
 
   var body: some View {
 
