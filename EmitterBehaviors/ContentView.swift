@@ -13,11 +13,15 @@ struct ContentView: View {
   let store: Store<AppState, AppAction>
   var body: some View {
     HStack {
-      ConfigurationView(store: store)
-        .frame(width: 440)
+      
+      NavigationView {
+      ComponentListView(store: store)
+        .frame(width: 300)
+      }.zIndex(1)
+      
       EmitterViewRepresentable(store: store)
+        .background(Color.green)
     }
-
   }
 }
 

@@ -38,11 +38,11 @@ extension EmitterBehavior {
       object.setValue(preservesDepth, forKey: "preservesDepth")
     case .attractor:
       object.setValue(attractorType.rawValue, forKey: "attractorType")
-      object.setValue(NSNumber(value: Float(stiffness)), forKey: "stiffness")
-      object.setValue(NSNumber(value: Float(radius)), forKey: "radius")
-      object.setValue(NSNumber(value: Float(falloff)), forKey: "falloff")
-      object.setValue(position, forKey: "position")
-      
+      object.setValue(NSNumber(value: stiffness), forKey: "stiffness")
+      object.setValue(NSNumber(value: radius), forKey: "radius")
+      object.setValue(NSNumber(value: falloff), forKey: "falloff")
+      object.setValue(CGPoint(x: position.x, y: position.y), forKey: "position")
+      object.setValue(Double(position.z), forKey: "zPosition")
     }
 
     return object
@@ -75,42 +75,19 @@ class EmitterView: UIView {
 
   func observeStore() {
 
-    viewStore.publisher.behaviors
+    viewStore.publisher
       .receive(on: DispatchQueue.main)
-      .map { $0.map(\.asBehavior) }
-      .sink { [weak self] (behaviors) in
-        self?.behaviors = behaviors
-      }.store(in: &cancellables)
-
-//    viewStore.publisher.emitterCell
-//      .receive(on: DispatchQueue.main)
-//      .sink { [weak self] (emitterConfiguration) in
-//        self?.configureEmitterCell(emitterConfiguration: emitterConfiguration)
-//      }.store(in: &cancellables)
-
-    viewStore.publisher.emitter
-      .receive(on: DispatchQueue.main)
+      .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
       .sink { [weak self] (val) in
-        self?.configureEmitter(configuration: val)
-      }.store(in: &cancellables)
-
-    viewStore.publisher.emitter
-      .receive(on: DispatchQueue.main)
-      .sink { [weak self] emitter in
-        self?.configureEmitter(configuration: emitter)
-      }.store(in: &cancellables)
+        let behaviors = val.behaviors.map(\.asBehavior)
+        self?.configureEmitter(configuration: val.emitter, behaviors: behaviors)
+      }
+      .store(in: &cancellables)
   }
 
   let emitterLayer = CAEmitterLayer()
-//  let emitterCellEmitterCell = CAEmitterCell()
 
-  var behaviors: [NSObject] = [] {
-    didSet {
-      emitterLayer.setValue(behaviors, forKey: "emitterBehaviors")
-    }
-  }
-
-  func configureEmitter(configuration: Emitter) {
+  func configureEmitter(configuration: Emitter, behaviors: [NSObject]) {
     emitterLayer.emitterShape = CAEmitterLayerEmitterShape(rawValue: configuration.emitterShape.rawValue)
     emitterLayer.emitterSize = CGSize(width: configuration.emitterSize.x,
                                       height: configuration.emitterSize.y)
@@ -133,7 +110,7 @@ class EmitterView: UIView {
 
       emitterCell.velocity = emitterConfiguration.velocity
       emitterCell.velocityRange = emitterConfiguration.velocityRange
-      emitterCell.birthRate = Float(emitterConfiguration.birthRate)
+      emitterCell.birthRate = emitterConfiguration.birthRate
       emitterCell.scaleRange = emitterConfiguration.scaleRange
       emitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
       emitterCell.xAcceleration = emitterConfiguration.acceleration.x
@@ -141,16 +118,16 @@ class EmitterView: UIView {
       emitterCell.zAcceleration = emitterConfiguration.acceleration.z
       emitterCell.velocity = emitterConfiguration.velocity
       emitterCell.velocityRange = emitterConfiguration.velocityRange
-      emitterCell.alphaSpeed = Float(emitterConfiguration.alphaSpeed)
-      emitterCell.alphaRange = Float(emitterConfiguration.alphaRange)
-      emitterCell.redRange = Float(emitterConfiguration.redRange)
-      emitterCell.redSpeed = Float(emitterConfiguration.redSpeed)
-      emitterCell.greenRange = Float(emitterConfiguration.greenRange)
-      emitterCell.greenSpeed = Float(emitterConfiguration.greenSpeed)
-      emitterCell.blueRange = Float(emitterConfiguration.blueRange)
-      emitterCell.blueSpeed = Float(emitterConfiguration.blueSpeed)
-      emitterCell.lifetime = Float(emitterConfiguration.lifetime)
-      emitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
+      emitterCell.alphaSpeed = emitterConfiguration.alphaSpeed
+      emitterCell.alphaRange = emitterConfiguration.alphaRange
+      emitterCell.redRange = emitterConfiguration.redRange
+      emitterCell.redSpeed = emitterConfiguration.redSpeed
+      emitterCell.greenRange = emitterConfiguration.greenRange
+      emitterCell.greenSpeed = emitterConfiguration.greenSpeed
+      emitterCell.blueRange = emitterConfiguration.blueRange
+      emitterCell.blueSpeed = emitterConfiguration.blueSpeed
+      emitterCell.lifetime = emitterConfiguration.lifetime
+      emitterCell.lifetimeRange = emitterConfiguration.lifetimeRange
 
       emitterCell.setValue(emitterConfiguration.particleType.rawValue,
                                       forKey: "particleType")
@@ -164,19 +141,31 @@ class EmitterView: UIView {
       emitterCells.append(emitterCell)
     }
 
-    if emitterLayer.superlayer == nil {
-      layer.addSublayer(emitterLayer)
+    emitterLayer.removeFromSuperlayer()
+    layer.addSublayer(emitterLayer)
+    emitterLayer.emitterCells = emitterCells
+
+    emitterLayer.removeAllAnimations()
+
+    configuration.animations.forEach { (anim) in
+      let animation = CABasicAnimation()
+      animation.fromValue = anim.fromValue
+      animation.toValue = anim.toValue
+      animation.keyPath = anim.key.rawValue
+      animation.duration = TimeInterval(anim.duration)
+      animation.isRemovedOnCompletion = false
+      emitterLayer.add(animation, forKey: anim.key.rawValue)
     }
 
-    emitterLayer.emitterCells = emitterCells
+    emitterLayer.beginTime = CACurrentMediaTime()
+    emitterLayer.setValue(behaviors, forKey: "emitterBehaviors")
   }
 
 
   func configureEmitterCell(emitterConfiguration: EmitterCell) {
 
     let emitterCell = CAEmitterCell()
-
-    emitterCell.name = "acell"
+    emitterCell.name = "\(emitterConfiguration.id)"
     emitterCell.beginTime = 0.1
     emitterCell.contents = emitterConfiguration.contents.image?.cgImage
     emitterCell.emissionRange = emitterConfiguration.emissionRange
@@ -209,11 +198,11 @@ class EmitterView: UIView {
 
     emitterCell.setValue(emitterConfiguration.particleType.rawValue,
                                     forKey: "particleType")
-    emitterCell.setValue(Double(emitterConfiguration.orientationRange),
+    emitterCell.setValue(emitterConfiguration.orientationRange,
                                     forKey: "orientationRange")
-    emitterCell.setValue(Double(emitterConfiguration.orientationLongitude),
+    emitterCell.setValue(emitterConfiguration.orientationLongitude,
                                     forKey: "orientationLongitude")
-    emitterCell.setValue(Double(emitterConfiguration.orientationLatitude),
+    emitterCell.setValue(emitterConfiguration.orientationLatitude,
                                     forKey: "orientationLatitude")
 
     emitterLayer.emitterCells = [emitterCell]

@@ -53,15 +53,14 @@ struct EmitterCell: Identifiable, Equatable {
   var color: Color = .purple
   var alpha: CGFloat = 1
 
-  var alphaSpeed: CGFloat = 1
-  var alphaRange: CGFloat = 0
-
-  var redSpeed: CGFloat = 0
-  var redRange: CGFloat = 0
-  var greenSpeed: CGFloat = 0
-  var greenRange: CGFloat = 0
-  var blueSpeed: CGFloat = 0
-  var blueRange: CGFloat = 0
+  var alphaSpeed: Float = 1
+  var alphaRange: Float = 0
+  var redSpeed: Float = 0
+  var redRange: Float = 0
+  var greenSpeed: Float = 0
+  var greenRange: Float = 0
+  var blueSpeed: Float = 0
+  var blueRange: Float = 0
   
   var scale: CGFloat = 1
   var scaleRange: CGFloat = 0.2
@@ -72,16 +71,17 @@ struct EmitterCell: Identifiable, Equatable {
   var velocityRange: CGFloat = 8
   var acceleration: Vector3 = Vector3(x: 0, y: 150, z: 0)
   var emissionRange: CGFloat = 6.28
-  var birthRate: CGFloat = 10
-  var lifetime: CGFloat = 5
-  var lifetimeRange: CGFloat = 4
+  var birthRate: Float = 10
+  var lifetime: Float = 5
+  var lifetimeRange: Float = 4
 
-  var orientationRange: CGFloat = .pi
-  var orientationLongitude: CGFloat = .pi / 2
-  var orientationLatitude: CGFloat = .pi / 2
+  var orientationRange: Double = .pi
+  var orientationLongitude: Double = .pi / 2
+  var orientationLatitude: Double = .pi / 2
 }
 
 enum EmitterCellAction: Equatable {
+  case remove
   case bindingAction(BindingAction<EmitterCell>)
 }
 

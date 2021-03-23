@@ -13,7 +13,13 @@ struct EmitterCellConfigurationView: View {
 
   let store: Store<EmitterCell, EmitterCellAction>
   var body: some View {
-    VStack(alignment: .leading) {
+    List {
+      WithViewStore(store) { viewStore in
+        Button("Remove") {
+          viewStore.send(.remove)
+        }.buttonStyle(BorderlessButtonStyle())
+      }
+      
       ParticleConfigurationView(store: store)
       VelocityConfigurationView(store: store)
       ScaleConfigurationView(store: store)
@@ -42,7 +48,6 @@ struct ScaleConfigurationView: View {
                             value: viewStore.binding(keyPath: \.scaleSpeed, send: EmitterCellAction.bindingAction),
                             minValue: 0,
                             maxValue: 1)
-        Divider()
       }
     }
   }
@@ -108,19 +113,22 @@ struct OrientationView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-      VStack {
-        if viewStore.showOrientations {
-          VStack {
-            CGFloatView(label: "Orientation Range",
-                        value: viewStore.binding(keyPath: \.orientationRange,
-                                                 send: EmitterCellAction.bindingAction))
-            CGFloatView(label: "Orientation Longitude",
-                        value: viewStore.binding(keyPath: \.orientationLongitude,
-                                                 send: EmitterCellAction.bindingAction))
-            CGFloatView(label: "Orientation Latitude",
-                        value: viewStore.binding(keyPath: \.orientationLatitude,
-                                                 send: EmitterCellAction.bindingAction))
-          }
+      if viewStore.showOrientations {
+        VStack {
+          SliderWithTextField(title: "Orientation Range",
+                              value: viewStore.binding(keyPath: \.orientationRange, send: EmitterCellAction.bindingAction),
+                              minValue: 0,
+                              maxValue: .pi * 2)
+
+          SliderWithTextField(title: "Orientation Longitude",
+                              value: viewStore.binding(keyPath: \.orientationLongitude, send: EmitterCellAction.bindingAction),
+                              minValue: 0,
+                              maxValue: .pi * 2)
+
+          SliderWithTextField(title: "Orientation Latitude",
+                              value: viewStore.binding(keyPath: \.orientationLatitude, send: EmitterCellAction.bindingAction),
+                              minValue: 0,
+                              maxValue: .pi * 2)
         }
       }
     }
@@ -132,8 +140,9 @@ struct ParticleConfigurationView: View {
   let store: Store<EmitterCell, EmitterCellAction>
 
   var body: some View {
-    WithViewStore(store) { viewStore in
-      
+    VStack(alignment: .leading) {
+      Text("Particle Type").font(.subheadline)
+      WithViewStore(store) { viewStore in
       Menu(viewStore.particleType.rawValue) {
         ForEach(ParticleType.allCases, id: \.self) { type in
           Button(type.rawValue) {
@@ -141,8 +150,6 @@ struct ParticleConfigurationView: View {
           }
         }
       }
-      
-      Divider()
       Text("Particle Contents").font(.subheadline)
       Menu(viewStore.contents.rawValue) {
         ForEach(ParticleContents.allCases, id: \.self) { type in
@@ -152,7 +159,7 @@ struct ParticleConfigurationView: View {
         }
       }
       OrientationView(store: store)
-      Divider()
+    }
     }
   }
 
@@ -193,7 +200,6 @@ struct VelocityConfigurationView: View {
                           minValue: 0,
                           maxValue: 20)
 
-      Divider()
     }
   }
 }

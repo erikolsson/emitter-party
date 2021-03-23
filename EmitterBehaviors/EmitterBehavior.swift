@@ -64,10 +64,10 @@ struct EmitterBehavior: Equatable, Identifiable {
   var preservesDepth = false
 
   var attractorType = AttractorType.radial
-  var stiffness: CGFloat = 0
-  var radius: CGFloat = 0
-  var position: CGPoint = .zero
-  var falloff: CGFloat = 0
+  var stiffness: Float = 0
+  var radius: Float = 0
+  var position: Vector3 = .zero
+  var falloff: Float = 0
 
 }
 

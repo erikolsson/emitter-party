@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		035D99912608A1A5007C7D75 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99902608A1A5007C7D75 /* Emitter.swift */; };
 		035D99952608A35B007C7D75 /* EmitterConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */; };
+		0370898A2609381100F67E57 /* EmitterAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037089892609381100F67E57 /* EmitterAnimation.swift */; };
+		0370898E260939E400F67E57 /* AnimationConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370898D260939E400F67E57 /* AnimationConfigurationView.swift */; };
+		037089912609BDC900F67E57 /* ComponentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037089902609BDC900F67E57 /* ComponentListView.swift */; };
 		037E09A4260885C800CBBCA0 /* EmitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A3260885C800CBBCA0 /* EmitterCell.swift */; };
 		037E09A72608884900CBBCA0 /* EmitterCellConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */; };
 		03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */; };
@@ -26,6 +29,9 @@
 		035D99902608A1A5007C7D75 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfigurationView.swift; sourceTree = "<group>"; };
 		037089812608D34500F67E57 /* EmitterBehaviors.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmitterBehaviors.entitlements; sourceTree = "<group>"; };
+		037089892609381100F67E57 /* EmitterAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterAnimation.swift; sourceTree = "<group>"; };
+		0370898D260939E400F67E57 /* AnimationConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationConfigurationView.swift; sourceTree = "<group>"; };
+		037089902609BDC900F67E57 /* ComponentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentListView.swift; sourceTree = "<group>"; };
 		037E09A3260885C800CBBCA0 /* EmitterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCell.swift; sourceTree = "<group>"; };
 		037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfigurationView.swift; sourceTree = "<group>"; };
 		03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmitterBehaviors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +85,7 @@
 				03D9A62B2607D5A300B42C8E /* Info.plist */,
 				03D9A6282607D5A300B42C8E /* Preview Content */,
 				03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */,
+				037089902609BDC900F67E57 /* ComponentListView.swift */,
 				03D9A6362607D77400B42C8E /* ConfigurationView.swift */,
 				037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */,
 				03D9A6202607D5A300B42C8E /* Products */,
@@ -86,6 +93,8 @@
 				037E09A3260885C800CBBCA0 /* EmitterCell.swift */,
 				035D99902608A1A5007C7D75 /* Emitter.swift */,
 				035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */,
+				037089892609381100F67E57 /* EmitterAnimation.swift */,
+				0370898D260939E400F67E57 /* AnimationConfigurationView.swift */,
 			);
 			path = EmitterBehaviors;
 			sourceTree = "<group>";
@@ -173,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0370898E260939E400F67E57 /* AnimationConfigurationView.swift in Sources */,
 				035D99952608A35B007C7D75 /* EmitterConfigurationView.swift in Sources */,
 				03D9A6252607D5A300B42C8E /* ContentView.swift in Sources */,
 				037E09A4260885C800CBBCA0 /* EmitterCell.swift in Sources */,
@@ -183,6 +193,8 @@
 				03D9A6462607DFE300B42C8E /* EmitterBehavior.swift in Sources */,
 				037E09A72608884900CBBCA0 /* EmitterCellConfigurationView.swift in Sources */,
 				03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */,
+				0370898A2609381100F67E57 /* EmitterAnimation.swift in Sources */,
+				037089912609BDC900F67E57 /* ComponentListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

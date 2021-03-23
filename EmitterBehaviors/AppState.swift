@@ -8,12 +8,25 @@
 import Swift
 import ComposableArchitecture
 
+enum SelectedComponent: Equatable {
+  case none
+  case emitter
+  case emitterCell(id: UUID)
+  case behavior(id: UUID)
+  case animation(id: UUID)
+}
+
 struct AppState: Equatable {
   var emitter = Emitter()
   var behaviors: IdentifiedArrayOf<EmitterBehavior> = []
+
+  var selectedComponent = SelectedComponent.none
 }
 
 enum AppAction: Equatable {
+  case selectBehavior(EmitterBehavior.ID)
+  case selectEmitter
+  case selectEmitterCell(EmitterCell.ID)
   case behavior(id: EmitterBehavior.ID, action: EmitterBehaviorAction)
   case emitterCell(EmitterCellAction)
   case emitter(EmitterAction)
@@ -31,6 +44,18 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
   Reducer<AppState, AppAction, AppEnvironment> {
     (state, action, env) -> Effect<AppAction, Never> in
     switch action {
+    case .selectEmitter:
+      state.selectedComponent = .emitter
+      return .none
+
+    case .selectBehavior(let id):
+      state.selectedComponent = .behavior(id: id)
+      return .none
+
+    case .selectEmitterCell(let id):
+      state.selectedComponent = .emitterCell(id: id)
+      return .none
+      
     case .add:
       state.behaviors.append(EmitterBehavior(behaviorType: .wave))
       return .none

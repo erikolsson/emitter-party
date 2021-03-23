@@ -15,22 +15,9 @@ struct ConfigurationView: View {
   var body: some View {
     WithViewStore(store) { viewStore in
       List {
-
         Section(header: Text("Emitter")) {
           EmitterConfigurationView(store: store.scope(state: \.emitter,
                                                       action: AppAction.emitter))
-        }
-
-        Section(header: Text("Behaviors")) {
-          Button("Add Behavior") {
-            viewStore.send(.add)
-          }.buttonStyle(BorderlessButtonStyle())
-          ForEachStore(
-            self.store.scope(state: \.behaviors,
-                                        action: AppAction.behavior(id:action:))
-          ) { behaviorStore in
-            BehaviorSettingsView(store: behaviorStore)
-          }
         }
       }
     }
@@ -39,23 +26,23 @@ struct ConfigurationView: View {
 }
 
 
-struct NumericTextField: View {
+struct NumericTextField<Value: BinaryFloatingPoint>: View where Value.Stride : BinaryFloatingPoint {
 
 
-  let minValue: CGFloat
-  let maxValue: CGFloat
+  let minValue: Value
+  let maxValue: Value
 
-  @Binding var value: CGFloat
+  @Binding var value: Value
   var allowsDecimals = false
   var body: some View {
     TextField("0.0", text: .init(get: {
       if allowsDecimals {
-        return String(format: "%0.1f", value)
+        return String(format: "%0.1f", CGFloat(value))
       } else {
-        return String(format: "%0.0f", value)
+        return String(format: "%0.0f", CGFloat(value))
       }
     }, set: { (str) in
-      self.value = CGFloat(Double(str) ?? 0)
+      self.value = Value(Double(str) ?? 0)
     })).keyboardType(.numbersAndPunctuation)
     .foregroundColor(Color.white)
     .padding([.top, .bottom], 2)
@@ -79,45 +66,45 @@ struct Vector3View: View {
   @Binding var value: Vector3
 
   var body: some View {
-    HStack {
-      Spacer()
-      
-      Text(label).font(.subheadline)
-        .padding([.bottom], 2)
-
-      Text("X").font(.subheadline)
-      NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
-      Spacer()
-      Text("Y").font(.subheadline)
-      NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
-      Spacer()
-      Text("Z").font(.subheadline)
-      NumericTextField(minValue: 0, maxValue: 10, value: $value.z)
+    VStack {
+      HStack {
+        Text(label).font(.subheadline)
+          .padding([.bottom], 2)
+        Spacer()
+      }
+      HStack {
+        Text("X").font(.subheadline)
+        NumericTextField(minValue: 0, maxValue: 10, value: $value.x)
+        Spacer()
+        Text("Y").font(.subheadline)
+        NumericTextField(minValue: 0, maxValue: 10, value: $value.y)
+        Spacer()
+        Text("Z").font(.subheadline)
+        NumericTextField(minValue: 0, maxValue: 10, value: $value.z)
+      }
     }
+    .padding([.top, .bottom], 5)
   }
 
 }
 
-struct SliderWithTextField: View {
+struct SliderWithTextField<Value: BinaryFloatingPoint>: View where Value.Stride : BinaryFloatingPoint {
   let title: String
-  @Binding var value: CGFloat
-  let minValue: CGFloat
-  let maxValue: CGFloat
+  @Binding var value: Value
+  let minValue: Value
+  let maxValue: Value
 
   var body: some View {
     VStack(alignment: .leading) {
-
+      Text(title).font(.subheadline)
       HStack {
-        Spacer()
-        Text(title).font(.subheadline)
         Slider(value: $value,
                in: minValue...maxValue) {
           Text("Scale Speed")
         }
-        .frame(width: 200)
         NumericTextField(minValue: 0, maxValue: 1, value: $value, allowsDecimals: true)
       }
-    }
+    }.padding([.top, .bottom], 5)
   }
 
 }
@@ -159,8 +146,9 @@ struct BehaviorSettingsView: View {
   let store: Store<EmitterBehavior, EmitterBehaviorAction>
 
   var body: some View {
-    WithViewStore(store) { viewStore in
 
+    List {
+    WithViewStore(store) { viewStore in
       VStack(alignment: .leading, spacing: 5) {
 
         HStack {
@@ -227,7 +215,7 @@ struct BehaviorSettingsView: View {
           SliderWithTextField(title: "Stiffness",
                               value: viewStore.binding(keyPath: \.stiffness,
                                                        send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
+                              minValue: -30,
                               maxValue: 30)
         }
 
@@ -240,7 +228,7 @@ struct BehaviorSettingsView: View {
         }
 
         if viewStore.showPosition {
-          CGPointView(label: "Position",
+          Vector3View(label: "Position",
                       value: viewStore.binding(keyPath: \.position,
                                                send: EmitterBehaviorAction.bindingAction))
         }
@@ -249,12 +237,14 @@ struct BehaviorSettingsView: View {
           SliderWithTextField(title: "Falloff",
                               value: viewStore.binding(keyPath: \.falloff,
                                                        send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
-                              maxValue: 2)
+                              minValue: -200,
+                              maxValue: 200)
         }
         }
+        Spacer()
       }
       .padding(.all, 10)
+    }
     }
     .padding([.top, .bottom], 10)
   }
