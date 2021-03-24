@@ -31,11 +31,14 @@ extension EmitterBehaviorConfiguration {
     case .wave:
       object.setValue([force.x, force.y, force.z], forKey: "force")
       object.setValue(frequency, forKey: "frequency")
+
     case .drag:
       object.setValue(drag, forKey: "drag")
+
     case .alignToMotion:
       object.setValue(rotation, forKey: "rotation")
       object.setValue(preservesDepth, forKey: "preservesDepth")
+
     case .attractor:
       object.setValue(attractorType.rawValue, forKey: "attractorType")
       object.setValue(stiffness, forKey: "stiffness")
@@ -43,9 +46,7 @@ extension EmitterBehaviorConfiguration {
       object.setValue(NSNumber(value: falloff), forKey: "falloff")
       object.setValue(CGPoint(x: position.x, y: position.y), forKey: "position")
       object.setValue(position.z, forKey: "zPosition")
-
     }
-
     return object
   }
 
@@ -59,6 +60,7 @@ extension EmitterBehaviorConfiguration {
 
 class EmitterView: UIView {
 
+  let emitterLayer = CAEmitterLayer()
   var cancellables = Set<AnyCancellable>()
   let store: Store<AppState, AppAction>
   let viewStore: ViewStore<AppState, AppAction>
@@ -75,7 +77,6 @@ class EmitterView: UIView {
   }
 
   func observeStore() {
-
     viewStore.publisher.viewConfiguration
       .receive(on: DispatchQueue.main)
       .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
@@ -85,8 +86,6 @@ class EmitterView: UIView {
       }
       .store(in: &cancellables)
   }
-
-  let emitterLayer = CAEmitterLayer()
 
   func configureEmitter(configuration: EmitterConfiguration, behaviors: [NSObject]) {
     emitterLayer.emitterShape = CAEmitterLayerEmitterShape(rawValue: configuration.emitterShape.rawValue)
@@ -145,7 +144,6 @@ class EmitterView: UIView {
     emitterLayer.removeFromSuperlayer()
     layer.addSublayer(emitterLayer)
     emitterLayer.emitterCells = emitterCells
-
     emitterLayer.removeAllAnimations()
 
     configuration.animations.forEach { (anim) in

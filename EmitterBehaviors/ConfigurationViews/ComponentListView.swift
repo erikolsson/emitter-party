@@ -27,36 +27,11 @@ struct ComponentListView: View {
         EmitterCellsSection(store: store)
         BehaviorsSection(store: store)
         AnimationsSection(store: store)
-
-//        .sheet(isPresented: viewStore.binding(get: { $0.showFilePicker },
-//                                               send: { (s) -> AppAction in
-//                                                .hideFilePicker
-//                                               }), content: {
-//                                                FilePickerController(url: viewStore.saveFile) { (url) in
-//                                                  print(url)
-//                                                }
-//                                               })
       }
     }
     .listStyle(PlainListStyle())
   }
-}
 
-extension ComponentListView: DropDelegate {
-
-  func dropEntered(info: DropInfo) {
-    print(info)
-  }
-
-  func dropUpdated(info: DropInfo) -> DropProposal? {
-    print("entered")
-    return nil //s DropProposal(operation: .move)
-  }
-
-  func performDrop(info: DropInfo) -> Bool {
-    print(info)
-    return true
-  }
 }
 
 struct SectionHeader: View {
