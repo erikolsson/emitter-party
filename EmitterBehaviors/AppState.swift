@@ -27,16 +27,20 @@ struct AppState: Equatable {
     return saveFile != nil
   }
 
+  mutating func tryLoadURL(url: URL) {
+    do {
+      let data = try Data(contentsOf: url)
+      let saveConfiguration = try JSONDecoder().decode(SaveConfiguration.self, from: data)
+      self.emitter = saveConfiguration.emitter
+      self.behaviors = IdentifiedArray(saveConfiguration.behaviors)
+    } catch let error {
+      print(error)
+    }
+  }
+
   init() {
     if let fileURL = Bundle.main.url(forResource: "heart", withExtension: "json") {
-      do {
-        let data = try Data(contentsOf: fileURL)
-        let saveConfiguration = try JSONDecoder().decode(SaveConfiguration.self, from: data)
-        self.emitter = saveConfiguration.emitter
-        self.behaviors = IdentifiedArray(saveConfiguration.behaviors)
-      } catch let error {
-        print(error)
-      }
+      tryLoadURL(url: fileURL)
     }
   }
 }
@@ -52,6 +56,7 @@ enum AppAction: Equatable {
   case add
   case hideFilePicker
   case save
+  case openURL(URL?)
 }
 
 struct AppEnvironment {}
@@ -96,14 +101,19 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     case .behavior, .emitterCell, .emitter:
       return .none
 
+    case .openURL(let url):
+      if let url = url {
+        state.tryLoadURL(url: url)
+      }
+      return .none
+
     case .save:
       let saveConfiguration = SaveConfiguration(emitter: state.emitter,
                                                 behaviors: state.behaviors.elements)
       do {
         let json = try JSONEncoder().encode(saveConfiguration)
-        print(String(data: json, encoding: .utf8))
-        print(json)
-        if let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+        if let url = FileManager.default.urls(for: .cachesDirectory,
+                                              in: .userDomainMask).first {
           let fileurl = url.appendingPathComponent("export.json")
           try json.write(to: fileurl)
           state.saveFile = fileurl

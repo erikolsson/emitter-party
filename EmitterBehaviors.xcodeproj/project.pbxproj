@@ -17,12 +17,13 @@
 		037089912609BDC900F67E57 /* ComponentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037089902609BDC900F67E57 /* ComponentListView.swift */; };
 		037E09A4260885C800CBBCA0 /* EmitterCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A3260885C800CBBCA0 /* EmitterCellConfiguration.swift */; };
 		037E09A72608884900CBBCA0 /* EmitterCellConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */; };
+		03831A88260B9C4400FAB025 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03831A87260B9C4400FAB025 /* FilePicker.swift */; };
 		03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */; };
 		03D9A6252607D5A300B42C8E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6242607D5A300B42C8E /* ContentView.swift */; };
 		03D9A6272607D5A300B42C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D9A6262607D5A300B42C8E /* Assets.xcassets */; };
 		03D9A62A2607D5A300B42C8E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D9A6292607D5A300B42C8E /* Preview Assets.xcassets */; };
 		03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */; };
-		03D9A6372607D77400B42C8E /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6362607D77400B42C8E /* ConfigurationView.swift */; };
+		03D9A6372607D77400B42C8E /* BehaviorConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6362607D77400B42C8E /* BehaviorConfigurationView.swift */; };
 		03D9A63B2607DC4600B42C8E /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 03D9A63A2607DC4600B42C8E /* ComposableArchitecture */; };
 		03D9A63E2607DC5400B42C8E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A63D2607DC5400B42C8E /* AppState.swift */; };
 		03D9A6462607DFE300B42C8E /* EmitterBehaviorConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6452607DFE300B42C8E /* EmitterBehaviorConfiguration.swift */; };
@@ -40,6 +41,7 @@
 		037089902609BDC900F67E57 /* ComponentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentListView.swift; sourceTree = "<group>"; };
 		037E09A3260885C800CBBCA0 /* EmitterCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfiguration.swift; sourceTree = "<group>"; };
 		037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfigurationView.swift; sourceTree = "<group>"; };
+		03831A87260B9C4400FAB025 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
 		03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmitterBehaviors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterBehaviorsApp.swift; sourceTree = "<group>"; };
 		03D9A6242607D5A300B42C8E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 		03D9A6292607D5A300B42C8E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03D9A62B2607D5A300B42C8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterViewRepresentable.swift; sourceTree = "<group>"; };
-		03D9A6362607D77400B42C8E /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		03D9A6362607D77400B42C8E /* BehaviorConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorConfigurationView.swift; sourceTree = "<group>"; };
 		03D9A63D2607DC5400B42C8E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		03D9A6452607DFE300B42C8E /* EmitterBehaviorConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterBehaviorConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,13 +74,24 @@
 			path = Examples;
 			sourceTree = SOURCE_ROOT;
 		};
+		0308CE86260B99A60006E25C /* ConfigurationViews */ = {
+			isa = PBXGroup;
+			children = (
+				0370898D260939E400F67E57 /* AnimationConfigurationView.swift */,
+				035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */,
+				037089902609BDC900F67E57 /* ComponentListView.swift */,
+				03D9A6362607D77400B42C8E /* BehaviorConfigurationView.swift */,
+				037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */,
+			);
+			path = ConfigurationViews;
+			sourceTree = "<group>";
+		};
 		0347B1B9260A116900BDDE1C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
 				03D9A6452607DFE300B42C8E /* EmitterBehaviorConfiguration.swift */,
 				037E09A3260885C800CBBCA0 /* EmitterCellConfiguration.swift */,
 				035D99902608A1A5007C7D75 /* EmitterConfiguration.swift */,
-				035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */,
 				037089892609381100F67E57 /* EmitterAnimationConfiguration.swift */,
 			);
 			path = Configurations;
@@ -103,6 +116,7 @@
 		03D9A6212607D5A300B42C8E /* EmitterBehaviors */ = {
 			isa = PBXGroup;
 			children = (
+				0308CE86260B99A60006E25C /* ConfigurationViews */,
 				0308CE7F260B78790006E25C /* Examples */,
 				0347B1B9260A116900BDDE1C /* Configurations */,
 				037089812608D34500F67E57 /* EmitterBehaviors.entitlements */,
@@ -114,12 +128,9 @@
 				03D9A62B2607D5A300B42C8E /* Info.plist */,
 				03D9A6282607D5A300B42C8E /* Preview Content */,
 				03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */,
-				0370898D260939E400F67E57 /* AnimationConfigurationView.swift */,
-				037089902609BDC900F67E57 /* ComponentListView.swift */,
-				03D9A6362607D77400B42C8E /* ConfigurationView.swift */,
-				037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */,
 				03D9A6202607D5A300B42C8E /* Products */,
 				0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */,
+				03831A87260B9C4400FAB025 /* FilePicker.swift */,
 			);
 			path = EmitterBehaviors;
 			sourceTree = "<group>";
@@ -214,9 +225,10 @@
 				037E09A4260885C800CBBCA0 /* EmitterCellConfiguration.swift in Sources */,
 				035D99912608A1A5007C7D75 /* EmitterConfiguration.swift in Sources */,
 				03D9A63E2607DC5400B42C8E /* AppState.swift in Sources */,
-				03D9A6372607D77400B42C8E /* ConfigurationView.swift in Sources */,
+				03D9A6372607D77400B42C8E /* BehaviorConfigurationView.swift in Sources */,
 				03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */,
 				03D9A6462607DFE300B42C8E /* EmitterBehaviorConfiguration.swift in Sources */,
+				03831A88260B9C4400FAB025 /* FilePicker.swift in Sources */,
 				037E09A72608884900CBBCA0 /* EmitterCellConfigurationView.swift in Sources */,
 				03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */,
 				0370898A2609381100F67E57 /* EmitterAnimationConfiguration.swift in Sources */,

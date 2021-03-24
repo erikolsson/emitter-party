@@ -8,24 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct ConfigurationView: View {
-
-  let store: Store<AppState, AppAction>
-
-  var body: some View {
-    WithViewStore(store) { viewStore in
-      List {
-        Section(header: Text("Emitter")) {
-          EmitterConfigurationView(store: store.scope(state: \.emitter,
-                                                      action: AppAction.emitter))
-        }
-      }
-    }
-  }
-
-}
-
-
 struct NumericTextField<Value: BinaryFloatingPoint>: View where Value.Stride : BinaryFloatingPoint {
 
 
@@ -141,7 +123,7 @@ struct CGPointView: View {
   }
 }
 
-struct BehaviorSettingsView: View {
+struct BehaviorConfigurationView: View {
 
   let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
 

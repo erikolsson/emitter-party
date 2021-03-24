@@ -72,7 +72,7 @@ struct IfLetBehaviorView: View {
 
   var body: some View {
     IfLetStore(store.scope(state: \.behaviors[id: id], action: {AppAction.behavior(id: id, action: $0)} )) { behaviorStore in
-      BehaviorSettingsView(store: behaviorStore)
+      BehaviorConfigurationView(store: behaviorStore)
     }
   }
 }
