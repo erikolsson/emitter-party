@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import UIKit
 
-enum AttractorType: String, CaseIterable, Identifiable, Equatable {
+enum AttractorType: String, CaseIterable, Identifiable, Equatable, Codable {
   var id: String {
     self.rawValue
   }
@@ -19,7 +19,7 @@ enum AttractorType: String, CaseIterable, Identifiable, Equatable {
   case planar
 }
 
-enum EmitterBehaviorType: String, CaseIterable, Identifiable, Equatable {
+enum EmitterBehaviorType: String, CaseIterable, Identifiable, Equatable, Codable {
   case wave
   case drag
   case alignToMotion
@@ -43,7 +43,7 @@ enum EmitterBehaviorType: String, CaseIterable, Identifiable, Equatable {
   }
 }
 
-struct Vector3: Equatable {
+struct Vector3: Equatable, Codable {
   var x: CGFloat
   var y: CGFloat
   var z: CGFloat
@@ -51,7 +51,7 @@ struct Vector3: Equatable {
   static let zero = { return Vector3(x: 0, y: 0, z: 0) }()
 }
 
-struct EmitterBehaviorConfiguration: Equatable, Identifiable {
+struct EmitterBehaviorConfiguration: Codable, Equatable, Identifiable {
 
   let id = UUID()
   var behaviorType: EmitterBehaviorType

@@ -9,7 +9,7 @@ import ComposableArchitecture
 import UIKit
 import SwiftUI
 
-enum ParticleContents: String, CaseIterable, Identifiable, Equatable {
+enum ParticleContents: String, CaseIterable, Identifiable, Equatable, Codable {
   case square
   case rectangle
   case arrow
@@ -37,16 +37,16 @@ enum ParticleContents: String, CaseIterable, Identifiable, Equatable {
 
 }
 
-enum ParticleType: String, CaseIterable, Identifiable, Equatable {
+enum ParticleType: String, CaseIterable, Identifiable, Equatable, Codable {
   var id: String {
     rawValue
   }
 
   case sprite
   case plane
-
 }
-struct EmitterCellConfiguration: Identifiable, Equatable {
+
+struct EmitterCellConfiguration: Identifiable, Equatable, Codable {
   var id = UUID()
   var particleType = ParticleType.plane
   var contents = ParticleContents.rectangle

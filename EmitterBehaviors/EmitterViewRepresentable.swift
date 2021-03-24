@@ -40,9 +40,10 @@ extension EmitterBehaviorConfiguration {
       object.setValue(attractorType.rawValue, forKey: "attractorType")
       object.setValue(stiffness, forKey: "stiffness")
       object.setValue(radius, forKey: "radius")
-      object.setValue(falloff, forKey: "falloff")
+      object.setValue(NSNumber(value: falloff), forKey: "falloff")
       object.setValue(CGPoint(x: position.x, y: position.y), forKey: "position")
-      object.setValue(Double(position.z), forKey: "zPosition")
+      object.setValue(position.z, forKey: "zPosition")
+
     }
 
     return object

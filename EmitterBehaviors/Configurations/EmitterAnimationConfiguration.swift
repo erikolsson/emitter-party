@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 
-enum EmitterAnimationKey: String, Equatable, Identifiable, CaseIterable {
+enum EmitterAnimationKey: String, Equatable, Identifiable, CaseIterable, Codable {
 
   var id: String {
     rawValue
@@ -17,7 +17,7 @@ enum EmitterAnimationKey: String, Equatable, Identifiable, CaseIterable {
 }
 
 
-struct EmitterAnimationConfiguration: Equatable, Identifiable {
+struct EmitterAnimationConfiguration: Codable, Equatable, Identifiable {
   let id = UUID()
   var fromValue: CGFloat = 1
   var toValue: CGFloat = 0

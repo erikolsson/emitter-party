@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0308CE81260B78890006E25C /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0308CE80260B78890006E25C /* heart.json */; };
+		0347B1E7260A8CCE00BDDE1C /* SaveConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */; };
+		0347B1EA260A8DF700BDDE1C /* Color+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */; };
 		035D99912608A1A5007C7D75 /* EmitterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99902608A1A5007C7D75 /* EmitterConfiguration.swift */; };
 		035D99952608A35B007C7D75 /* EmitterConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */; };
 		0370898A2609381100F67E57 /* EmitterAnimationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037089892609381100F67E57 /* EmitterAnimationConfiguration.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0308CE80260B78890006E25C /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
+		0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveConfiguration.swift; sourceTree = "<group>"; };
+		0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
 		035D99902608A1A5007C7D75 /* EmitterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfiguration.swift; sourceTree = "<group>"; };
 		035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfigurationView.swift; sourceTree = "<group>"; };
 		037089812608D34500F67E57 /* EmitterBehaviors.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmitterBehaviors.entitlements; sourceTree = "<group>"; };
@@ -58,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0308CE7F260B78790006E25C /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				0308CE80260B78890006E25C /* heart.json */,
+			);
+			path = Examples;
+			sourceTree = SOURCE_ROOT;
+		};
 		0347B1B9260A116900BDDE1C /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,9 +103,11 @@
 		03D9A6212607D5A300B42C8E /* EmitterBehaviors */ = {
 			isa = PBXGroup;
 			children = (
+				0308CE7F260B78790006E25C /* Examples */,
 				0347B1B9260A116900BDDE1C /* Configurations */,
 				037089812608D34500F67E57 /* EmitterBehaviors.entitlements */,
 				03D9A63D2607DC5400B42C8E /* AppState.swift */,
+				0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */,
 				03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */,
 				03D9A6242607D5A300B42C8E /* ContentView.swift */,
 				03D9A6262607D5A300B42C8E /* Assets.xcassets */,
@@ -103,6 +119,7 @@
 				03D9A6362607D77400B42C8E /* ConfigurationView.swift */,
 				037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */,
 				03D9A6202607D5A300B42C8E /* Products */,
+				0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */,
 			);
 			path = EmitterBehaviors;
 			sourceTree = "<group>";
@@ -179,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D9A62A2607D5A300B42C8E /* Preview Assets.xcassets in Resources */,
+				0308CE81260B78890006E25C /* heart.json in Resources */,
 				03D9A6272607D5A300B42C8E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +221,8 @@
 				03D9A6342607D5CA00B42C8E /* EmitterViewRepresentable.swift in Sources */,
 				0370898A2609381100F67E57 /* EmitterAnimationConfiguration.swift in Sources */,
 				037089912609BDC900F67E57 /* ComponentListView.swift in Sources */,
+				0347B1EA260A8DF700BDDE1C /* Color+Codable.swift in Sources */,
+				0347B1E7260A8CCE00BDDE1C /* SaveConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

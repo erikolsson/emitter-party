@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import UIKit
 
-enum EmitterShape: String, CaseIterable, Identifiable, Equatable {
+enum EmitterShape: String, CaseIterable, Identifiable, Equatable, Codable {
   var id: String {
     rawValue
   }
@@ -20,7 +20,7 @@ enum EmitterShape: String, CaseIterable, Identifiable, Equatable {
   case sphere
 }
 
-struct EmitterConfiguration: Equatable {
+struct EmitterConfiguration: Equatable, Codable {
   var emitterShape = EmitterShape.rectangle
   var emitterPosition: CGPoint = CGPoint(x: 500, y: 0)
   var emitterSize: CGPoint = CGPoint(x: 500, y: 0)

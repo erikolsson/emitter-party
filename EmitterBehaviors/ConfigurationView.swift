@@ -148,103 +148,103 @@ struct BehaviorSettingsView: View {
   var body: some View {
 
     List {
-    WithViewStore(store) { viewStore in
-      VStack(alignment: .leading, spacing: 5) {
+      WithViewStore(store) { viewStore in
+        VStack(alignment: .leading, spacing: 5) {
 
-        HStack {
-          Menu(viewStore.behaviorType.title) {
-            ForEach(EmitterBehaviorType.allCases, id: \.self) { type in
-              Button(type.title) {
-                viewStore.send(.bindingAction(.set(\.behaviorType, type)))
+          HStack {
+            Menu(viewStore.behaviorType.title) {
+              ForEach(EmitterBehaviorType.allCases, id: \.self) { type in
+                Button(type.title) {
+                  viewStore.send(.bindingAction(.set(\.behaviorType, type)))
+                }
               }
+            }
+            Spacer()
+            Button("Remove", action: { viewStore.send(.remove) })
+              .buttonStyle(BorderlessButtonStyle())
+          }
+          Divider()
+          Group {
+            if viewStore.showForce {
+              Vector3View(label: "Force",
+                          value: viewStore.binding(keyPath: \.force,
+                                                   send: EmitterBehaviorAction.bindingAction))
+            }
+
+            if viewStore.showFrequency {
+              SliderWithTextField(title: "Frequency",
+                                  value: viewStore.binding(keyPath: \.frequency,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: 0,
+                                  maxValue: 1)
+            }
+
+            if viewStore.showDrag {
+              SliderWithTextField(title: "Drag",
+                                  value: viewStore.binding(keyPath: \.drag,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: 0,
+                                  maxValue: 1)
+            }
+
+            if viewStore.showRotation {
+              SliderWithTextField(title: "Rotation",
+                                  value: viewStore.binding(keyPath: \.rotation,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: 0,
+                                  maxValue: .pi * 2)
+            }
+
+            if viewStore.showPreservesDepth {
+              Toggle("Preserves Depth",
+                     isOn: viewStore.binding(keyPath: \.preservesDepth,
+                                             send: EmitterBehaviorAction.bindingAction))
+            }
+
+            if viewStore.showAttractorType {
+              Menu(viewStore.attractorType.rawValue) {
+                ForEach(AttractorType.allCases, id: \.self) { type in
+                  Button(type.rawValue) {
+                    viewStore.send(.bindingAction(.set(\.attractorType, type)))
+                  }
+                }
+              }
+            }
+
+            if viewStore.showStiffness {
+              SliderWithTextField(title: "Stiffness",
+                                  value: viewStore.binding(keyPath: \.stiffness,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: -30,
+                                  maxValue: 30)
+            }
+
+            if viewStore.showRadius {
+              SliderWithTextField(title: "Radius",
+                                  value: viewStore.binding(keyPath: \.radius,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: 0,
+                                  maxValue: 300)
+            }
+
+            if viewStore.showPosition {
+              Vector3View(label: "Position",
+                          value: viewStore.binding(keyPath: \.position,
+                                                   send: EmitterBehaviorAction.bindingAction))
+            }
+
+            if viewStore.showFalloff {
+              SliderWithTextField(title: "Falloff",
+                                  value: viewStore.binding(keyPath: \.falloff,
+                                                           send: EmitterBehaviorAction.bindingAction),
+                                  minValue: -300,
+                                  maxValue: 300)
             }
           }
           Spacer()
-          Button("Remove", action: { viewStore.send(.remove) })
-            .buttonStyle(BorderlessButtonStyle())
         }
-        Divider()
-        Group {
-        if viewStore.showForce {
-          Vector3View(label: "Force",
-                      value: viewStore.binding(keyPath: \.force,
-                                               send: EmitterBehaviorAction.bindingAction))
-        }
-
-        if viewStore.showFrequency {
-          SliderWithTextField(title: "Frequency",
-                              value: viewStore.binding(keyPath: \.frequency,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
-                              maxValue: 1)
-        }
-
-        if viewStore.showDrag {
-          SliderWithTextField(title: "Drag",
-                              value: viewStore.binding(keyPath: \.drag,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
-                              maxValue: 1)
-        }
-
-        if viewStore.showRotation {
-          SliderWithTextField(title: "Rotation",
-                              value: viewStore.binding(keyPath: \.rotation,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
-                              maxValue: .pi * 2)
-        }
-
-        if viewStore.showPreservesDepth {
-          Toggle("Preserves Depth",
-                 isOn: viewStore.binding(keyPath: \.preservesDepth,
-                                         send: EmitterBehaviorAction.bindingAction))
-        }
-
-        if viewStore.showAttractorType {
-          Menu(viewStore.attractorType.rawValue) {
-            ForEach(AttractorType.allCases, id: \.self) { type in
-              Button(type.rawValue) {
-                viewStore.send(.bindingAction(.set(\.attractorType, type)))
-              }
-            }
-          }
-        }
-
-        if viewStore.showStiffness {
-          SliderWithTextField(title: "Stiffness",
-                              value: viewStore.binding(keyPath: \.stiffness,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: -30,
-                              maxValue: 30)
-        }
-
-        if viewStore.showRadius {
-          SliderWithTextField(title: "Radius",
-                              value: viewStore.binding(keyPath: \.radius,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: 0,
-                              maxValue: 300)
-        }
-
-        if viewStore.showPosition {
-          Vector3View(label: "Position",
-                      value: viewStore.binding(keyPath: \.position,
-                                               send: EmitterBehaviorAction.bindingAction))
-        }
-
-        if viewStore.showFalloff {
-          SliderWithTextField(title: "Falloff",
-                              value: viewStore.binding(keyPath: \.falloff,
-                                                       send: EmitterBehaviorAction.bindingAction),
-                              minValue: -200,
-                              maxValue: 200)
-        }
-        }
-        Spacer()
+        .padding(.all, 10)
       }
-      .padding(.all, 10)
-    }
     }
   }
 

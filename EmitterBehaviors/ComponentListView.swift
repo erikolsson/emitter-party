@@ -7,11 +7,11 @@
 
 import SwiftUI
 import ComposableArchitecture
+import UIKit
 
 struct ComponentListView: View {
 
   let store: Store<AppState, AppAction>
-
   var body: some View {
     List {
       WithViewStore(store) { viewStore in
@@ -27,9 +27,37 @@ struct ComponentListView: View {
         EmitterCellsSection(store: store)
         BehaviorsSection(store: store)
         AnimationsSection(store: store)
+
+        Button("Save") {
+          viewStore.send(.save)
+        }.sheet(isPresented: viewStore.binding(get: { $0.showFilePicker },
+                                               send: { (s) -> AppAction in
+                                                .hideFilePicker
+                                               }), content: {
+                                                FilePickerController(url: viewStore.saveFile) { (url) in
+                                                  print(url)
+                                                }
+                                               })
       }
     }
     .listStyle(PlainListStyle())
+  }
+}
+
+extension ComponentListView: DropDelegate {
+
+  func dropEntered(info: DropInfo) {
+    print(info)
+  }
+
+  func dropUpdated(info: DropInfo) -> DropProposal? {
+    print("entered")
+    return nil //s DropProposal(operation: .move)
+  }
+
+  func performDrop(info: DropInfo) -> Bool {
+    print(info)
+    return true
   }
 }
 
@@ -64,7 +92,7 @@ struct EmitterCellsSection: View {
       Section(header:
                 SectionHeader(title: "Emitter Cells", action: {
                   viewStore.send(.emitter(.addEmitterCell))
-      })) {
+                })) {
         ForEach(viewStore.emitter.emitterCells) { cell in
 
           Button(cell.contents.rawValue.capitalized) {
@@ -115,5 +143,61 @@ struct BehaviorsSection: View {
         }
       }
     }
+  }
+}
+
+
+struct FilePickerController: UIViewControllerRepresentable {
+
+  let url: URL?
+  var callback: (URL) -> ()
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
+
+  func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: UIViewControllerRepresentableContext<FilePickerController>) {
+    // Update the controller
+  }
+
+  func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+    print("Making the picker")
+
+    let controller = UIDocumentPickerViewController(forExporting: [url!])
+    controller.delegate = context.coordinator
+    print("Setup the delegate \(context.coordinator)")
+
+    return controller
+  }
+
+  class Coordinator: NSObject, UIDocumentPickerDelegate {
+    var parent: FilePickerController
+
+    init(_ pickerController: FilePickerController) {
+      self.parent = pickerController
+      print("Setup a parent")
+      print("Callback: \(parent.callback)")
+    }
+
+    func documentPicker(didPickDocumentsAt: [URL]) {
+      print("Selected a document: \(didPickDocumentsAt[0])")
+      parent.callback(didPickDocumentsAt[0])
+    }
+
+    func documentPickerWasCancelled() {
+      print("Document picker was thrown away :(")
+    }
+
+    deinit {
+      print("Coordinator going away")
+    }
+  }
+}
+
+struct PickerView: View {
+  var url: URL?
+  var callback: (URL) -> ()
+  var body: some View {
+    FilePickerController(url: url, callback: callback)
   }
 }

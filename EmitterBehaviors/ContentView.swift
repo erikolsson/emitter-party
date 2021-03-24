@@ -9,15 +9,13 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ContentView: View {
-
+  @State var targeted: Bool = false
   let store: Store<AppState, AppAction>
   var body: some View {
     ZStack {
-      HStack {
+      HStack(spacing: 0) {
         ComponentListView(store: store)
           .frame(width: 260)
-          .zIndex(1)
-
         EmitterViewRepresentable(store: store)
       }
 

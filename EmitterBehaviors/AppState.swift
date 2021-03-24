@@ -21,6 +21,24 @@ struct AppState: Equatable {
   var behaviors: IdentifiedArrayOf<EmitterBehaviorConfiguration> = []
 
   var selectedComponent = SelectedComponent.none
+  var saveFile: URL?
+
+  var showFilePicker: Bool {
+    return saveFile != nil
+  }
+
+  init() {
+    if let fileURL = Bundle.main.url(forResource: "heart", withExtension: "json") {
+      do {
+        let data = try Data(contentsOf: fileURL)
+        let saveConfiguration = try JSONDecoder().decode(SaveConfiguration.self, from: data)
+        self.emitter = saveConfiguration.emitter
+        self.behaviors = IdentifiedArray(saveConfiguration.behaviors)
+      } catch let error {
+        print(error)
+      }
+    }
+  }
 }
 
 enum AppAction: Equatable {
@@ -32,6 +50,8 @@ enum AppAction: Equatable {
   case emitterCell(EmitterCellAction)
   case emitter(EmitterAction)
   case add
+  case hideFilePicker
+  case save
 }
 
 struct AppEnvironment {}
@@ -69,7 +89,28 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.behaviors.remove(id: id)
       return .none
 
+    case .hideFilePicker:
+      state.saveFile = nil
+      return .none
+
     case .behavior, .emitterCell, .emitter:
+      return .none
+
+    case .save:
+      let saveConfiguration = SaveConfiguration(emitter: state.emitter,
+                                                behaviors: state.behaviors.elements)
+      do {
+        let json = try JSONEncoder().encode(saveConfiguration)
+        print(String(data: json, encoding: .utf8))
+        print(json)
+        if let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+          let fileurl = url.appendingPathComponent("export.json")
+          try json.write(to: fileurl)
+          state.saveFile = fileurl
+        }
+      } catch let err {
+        print(err)
+      }
       return .none
     }
   }
