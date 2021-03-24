@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import UIKit
 
 enum EmitterAnimationKey: String, Equatable, Identifiable, CaseIterable, Codable {
 
