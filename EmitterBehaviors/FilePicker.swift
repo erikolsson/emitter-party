@@ -60,7 +60,7 @@ struct FilePickerController: UIViewControllerRepresentable {
   }
 }
 
-struct PickerView: View {
+struct FilePickerView: View {
   var url: URL?
   var callback: (URL) -> ()
   var body: some View {

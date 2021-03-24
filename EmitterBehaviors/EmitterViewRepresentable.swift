@@ -76,7 +76,7 @@ class EmitterView: UIView {
 
   func observeStore() {
 
-    viewStore.publisher
+    viewStore.publisher.viewConfiguration
       .receive(on: DispatchQueue.main)
       .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
       .sink { [weak self] (val) in

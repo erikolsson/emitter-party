@@ -16,21 +16,43 @@ enum SelectedComponent: Equatable {
   case animation(id: UUID)
 }
 
+enum FileIOState: Equatable, Identifiable {
+  case open
+  case saveFile(URL)
+
+  var id: String {
+    switch self {
+    case .open:
+      return "open"
+    case .saveFile(let url):
+      return url.absoluteString
+    }
+  }
+}
+
+enum AppExample: String, Equatable, CaseIterable, Identifiable {
+  var id: String {
+    rawValue
+  }
+
+  case snake
+  case swarm
+  case swim
+  case waterfall
+  case hearts
+}
+
 struct AppState: Equatable {
   var emitter = EmitterConfiguration()
   var behaviors: IdentifiedArrayOf<EmitterBehaviorConfiguration> = []
 
   var selectedComponent = SelectedComponent.none
-  var saveFile: URL?
-
-  var showFilePicker: Bool {
-    return saveFile != nil
-  }
+  var ioState: FileIOState?
 
   mutating func tryLoadURL(url: URL) {
     do {
       let data = try Data(contentsOf: url)
-      let saveConfiguration = try JSONDecoder().decode(SaveConfiguration.self, from: data)
+      let saveConfiguration = try JSONDecoder().decode(EmitterViewConfiguration.self, from: data)
       self.emitter = saveConfiguration.emitter
       self.behaviors = IdentifiedArray(saveConfiguration.behaviors)
     } catch let error {
@@ -38,10 +60,15 @@ struct AppState: Equatable {
     }
   }
 
-  init() {
-    if let fileURL = Bundle.main.url(forResource: "heart", withExtension: "json") {
+  mutating func tryLoadExample(example: AppExample) {
+    if let fileURL = Bundle.main.url(forResource: example.rawValue,
+                                     withExtension: "json") {
       tryLoadURL(url: fileURL)
     }
+  }
+
+  init() {
+    tryLoadExample(example: .hearts)
   }
 }
 
@@ -53,9 +80,12 @@ enum AppAction: Equatable {
   case behavior(id: EmitterBehaviorConfiguration.ID, action: EmitterBehaviorAction)
   case emitterCell(EmitterCellAction)
   case emitter(EmitterAction)
-  case add
-  case hideFilePicker
+  case loadExample(AppExample)
+  case addBehavior
+  
   case save
+  case open
+  case hideFilePicker
   case openURL(URL?)
 }
 
@@ -86,7 +116,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.selectedComponent = .animation(id: id)
       return .none
 
-    case .add:
+    case .addBehavior:
       state.behaviors.append(EmitterBehaviorConfiguration(behaviorType: .wave))
       return .none
 
@@ -94,11 +124,22 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       state.behaviors.remove(id: id)
       return .none
 
+    case let .loadExample(example):
+      if let fileURL = Bundle.main.url(forResource: example.rawValue,
+                                       withExtension: "json") {
+        state.tryLoadURL(url: fileURL)
+      }
+      return .none
+
     case .hideFilePicker:
-      state.saveFile = nil
+      state.ioState = nil
       return .none
 
     case .behavior, .emitterCell, .emitter:
+      return .none
+
+    case .open:
+      state.ioState = .open
       return .none
 
     case .openURL(let url):
@@ -108,15 +149,15 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
 
     case .save:
-      let saveConfiguration = SaveConfiguration(emitter: state.emitter,
-                                                behaviors: state.behaviors.elements)
+      let saveConfiguration = EmitterViewConfiguration(emitter: state.emitter,
+                                                       behaviors: state.behaviors.elements)
       do {
         let json = try JSONEncoder().encode(saveConfiguration)
         if let url = FileManager.default.urls(for: .cachesDirectory,
                                               in: .userDomainMask).first {
           let fileurl = url.appendingPathComponent("export.json")
           try json.write(to: fileurl)
-          state.saveFile = fileurl
+          state.ioState = .saveFile(fileurl)
         }
       } catch let err {
         print(err)
@@ -129,6 +170,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
 
 
 extension AppState {
+
+  var viewConfiguration: EmitterViewConfiguration {
+    EmitterViewConfiguration(emitter: emitter,
+                             behaviors: behaviors.elements)
+  }
+
   func isSelected(behavior: EmitterBehaviorConfiguration) -> Bool {
     switch selectedComponent {
     case let .behavior(id: id):

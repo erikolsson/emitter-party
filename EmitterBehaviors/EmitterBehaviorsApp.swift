@@ -11,7 +11,6 @@ import ComposableArchitecture
 @main
 struct EmitterBehaviorsApp: App {
 
-  @State var showFilePicker = false
   var store = Store(initialState: AppState(),
                     reducer: appReducer,
                     environment: AppEnvironment())
@@ -19,20 +18,42 @@ struct EmitterBehaviorsApp: App {
   var body: some Scene {
     WithViewStore(store) { viewStore in
 
-
       WindowGroup {
         ContentView(store: store)
-          .sheet(isPresented: $showFilePicker, content: {
-            PickerView(url: nil) { (url) in
-              viewStore.send(.openURL(url))
+          .sheet(item: viewStore.binding(
+            get: {$0.ioState},
+            send: AppAction.hideFilePicker
+          )) { (state) in
+            switch state {
+            case let .saveFile(targetURL):
+              FilePickerView(url: targetURL) { (url) in
+                viewStore.send(.openURL(url))
+              }
+            case .open:
+              FilePickerView(url: nil) { (url) in
+                viewStore.send(.openURL(url))
+              }
             }
-          })
+          }
       }
       .commands {
+        CommandGroup(before: .saveItem) {
+          Menu("Examples") {
+            ForEach(AppExample.allCases) { (example) in
+              Button(example.rawValue.capitalized) {
+                viewStore.send(.loadExample(example))
+              }
+            }
+          }
+        }
         CommandGroup(before: CommandGroupPlacement.saveItem) {
           Button("Open") {
-            showFilePicker = true
-          }
+            viewStore.send(.open)
+          }.keyboardShortcut(KeyEquivalent("o"), modifiers: .command)
+
+          Button("Save") {
+            viewStore.send(.save)
+          }.keyboardShortcut(KeyEquivalent("s"), modifiers: .command)
         }
       }
     }

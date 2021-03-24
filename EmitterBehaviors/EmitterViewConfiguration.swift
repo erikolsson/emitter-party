@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SaveConfiguration: Codable {
+struct EmitterViewConfiguration: Codable, Equatable {
   let emitter: EmitterConfiguration
   let behaviors: [EmitterBehaviorConfiguration]
 }

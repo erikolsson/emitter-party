@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0308CE81260B78890006E25C /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = 0308CE80260B78890006E25C /* heart.json */; };
-		0347B1E7260A8CCE00BDDE1C /* SaveConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */; };
+		0308CE81260B78890006E25C /* hearts.json in Resources */ = {isa = PBXBuildFile; fileRef = 0308CE80260B78890006E25C /* hearts.json */; };
+		0347B1E7260A8CCE00BDDE1C /* EmitterViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347B1E6260A8CCE00BDDE1C /* EmitterViewConfiguration.swift */; };
 		0347B1EA260A8DF700BDDE1C /* Color+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */; };
 		035D99912608A1A5007C7D75 /* EmitterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99902608A1A5007C7D75 /* EmitterConfiguration.swift */; };
 		035D99952608A35B007C7D75 /* EmitterConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */; };
@@ -18,6 +18,10 @@
 		037E09A4260885C800CBBCA0 /* EmitterCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A3260885C800CBBCA0 /* EmitterCellConfiguration.swift */; };
 		037E09A72608884900CBBCA0 /* EmitterCellConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */; };
 		03831A88260B9C4400FAB025 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03831A87260B9C4400FAB025 /* FilePicker.swift */; };
+		03831AB7260BD00D00FAB025 /* swarm.json in Resources */ = {isa = PBXBuildFile; fileRef = 03831AB3260BD00D00FAB025 /* swarm.json */; };
+		03831AB8260BD00D00FAB025 /* snake.json in Resources */ = {isa = PBXBuildFile; fileRef = 03831AB4260BD00D00FAB025 /* snake.json */; };
+		03831AB9260BD00D00FAB025 /* swim.json in Resources */ = {isa = PBXBuildFile; fileRef = 03831AB5260BD00D00FAB025 /* swim.json */; };
+		03831ABA260BD00D00FAB025 /* waterfall.json in Resources */ = {isa = PBXBuildFile; fileRef = 03831AB6260BD00D00FAB025 /* waterfall.json */; };
 		03D9A6232607D5A300B42C8E /* EmitterBehaviorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */; };
 		03D9A6252607D5A300B42C8E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D9A6242607D5A300B42C8E /* ContentView.swift */; };
 		03D9A6272607D5A300B42C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D9A6262607D5A300B42C8E /* Assets.xcassets */; };
@@ -30,8 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0308CE80260B78890006E25C /* heart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
-		0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveConfiguration.swift; sourceTree = "<group>"; };
+		0308CE80260B78890006E25C /* hearts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hearts.json; sourceTree = "<group>"; };
+		0347B1E6260A8CCE00BDDE1C /* EmitterViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterViewConfiguration.swift; sourceTree = "<group>"; };
 		0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
 		035D99902608A1A5007C7D75 /* EmitterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfiguration.swift; sourceTree = "<group>"; };
 		035D99942608A35B007C7D75 /* EmitterConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterConfigurationView.swift; sourceTree = "<group>"; };
@@ -42,6 +46,10 @@
 		037E09A3260885C800CBBCA0 /* EmitterCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfiguration.swift; sourceTree = "<group>"; };
 		037E09A62608884900CBBCA0 /* EmitterCellConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterCellConfigurationView.swift; sourceTree = "<group>"; };
 		03831A87260B9C4400FAB025 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePicker.swift; sourceTree = "<group>"; };
+		03831AB3260BD00D00FAB025 /* swarm.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swarm.json; sourceTree = "<group>"; };
+		03831AB4260BD00D00FAB025 /* snake.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = snake.json; sourceTree = "<group>"; };
+		03831AB5260BD00D00FAB025 /* swim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = swim.json; sourceTree = "<group>"; };
+		03831AB6260BD00D00FAB025 /* waterfall.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waterfall.json; sourceTree = "<group>"; };
 		03D9A61F2607D5A300B42C8E /* EmitterBehaviors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmitterBehaviors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterBehaviorsApp.swift; sourceTree = "<group>"; };
 		03D9A6242607D5A300B42C8E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,7 +77,11 @@
 		0308CE7F260B78790006E25C /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				0308CE80260B78890006E25C /* heart.json */,
+				03831AB4260BD00D00FAB025 /* snake.json */,
+				03831AB3260BD00D00FAB025 /* swarm.json */,
+				03831AB5260BD00D00FAB025 /* swim.json */,
+				03831AB6260BD00D00FAB025 /* waterfall.json */,
+				0308CE80260B78890006E25C /* hearts.json */,
 			);
 			path = Examples;
 			sourceTree = SOURCE_ROOT;
@@ -116,21 +128,21 @@
 		03D9A6212607D5A300B42C8E /* EmitterBehaviors */ = {
 			isa = PBXGroup;
 			children = (
-				0308CE86260B99A60006E25C /* ConfigurationViews */,
-				0308CE7F260B78790006E25C /* Examples */,
-				0347B1B9260A116900BDDE1C /* Configurations */,
-				037089812608D34500F67E57 /* EmitterBehaviors.entitlements */,
 				03D9A63D2607DC5400B42C8E /* AppState.swift */,
-				0347B1E6260A8CCE00BDDE1C /* SaveConfiguration.swift */,
-				03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */,
-				03D9A6242607D5A300B42C8E /* ContentView.swift */,
 				03D9A6262607D5A300B42C8E /* Assets.xcassets */,
+				0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */,
+				0347B1B9260A116900BDDE1C /* Configurations */,
+				0308CE86260B99A60006E25C /* ConfigurationViews */,
+				03D9A6242607D5A300B42C8E /* ContentView.swift */,
+				037089812608D34500F67E57 /* EmitterBehaviors.entitlements */,
+				03D9A6222607D5A300B42C8E /* EmitterBehaviorsApp.swift */,
+				0347B1E6260A8CCE00BDDE1C /* EmitterViewConfiguration.swift */,
+				03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */,
+				0308CE7F260B78790006E25C /* Examples */,
+				03831A87260B9C4400FAB025 /* FilePicker.swift */,
 				03D9A62B2607D5A300B42C8E /* Info.plist */,
 				03D9A6282607D5A300B42C8E /* Preview Content */,
-				03D9A6332607D5CA00B42C8E /* EmitterViewRepresentable.swift */,
 				03D9A6202607D5A300B42C8E /* Products */,
-				0347B1E9260A8DF700BDDE1C /* Color+Codable.swift */,
-				03831A87260B9C4400FAB025 /* FilePicker.swift */,
 			);
 			path = EmitterBehaviors;
 			sourceTree = "<group>";
@@ -206,9 +218,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03831AB7260BD00D00FAB025 /* swarm.json in Resources */,
+				03831AB9260BD00D00FAB025 /* swim.json in Resources */,
 				03D9A62A2607D5A300B42C8E /* Preview Assets.xcassets in Resources */,
-				0308CE81260B78890006E25C /* heart.json in Resources */,
+				03831AB8260BD00D00FAB025 /* snake.json in Resources */,
+				0308CE81260B78890006E25C /* hearts.json in Resources */,
 				03D9A6272607D5A300B42C8E /* Assets.xcassets in Resources */,
+				03831ABA260BD00D00FAB025 /* waterfall.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +250,7 @@
 				0370898A2609381100F67E57 /* EmitterAnimationConfiguration.swift in Sources */,
 				037089912609BDC900F67E57 /* ComponentListView.swift in Sources */,
 				0347B1EA260A8DF700BDDE1C /* Color+Codable.swift in Sources */,
-				0347B1E7260A8CCE00BDDE1C /* SaveConfiguration.swift in Sources */,
+				0347B1E7260A8CCE00BDDE1C /* EmitterViewConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

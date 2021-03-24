@@ -28,16 +28,14 @@ struct ComponentListView: View {
         BehaviorsSection(store: store)
         AnimationsSection(store: store)
 
-        Button("Save") {
-          viewStore.send(.save)
-        }.sheet(isPresented: viewStore.binding(get: { $0.showFilePicker },
-                                               send: { (s) -> AppAction in
-                                                .hideFilePicker
-                                               }), content: {
-                                                FilePickerController(url: viewStore.saveFile) { (url) in
-                                                  print(url)
-                                                }
-                                               })
+//        .sheet(isPresented: viewStore.binding(get: { $0.showFilePicker },
+//                                               send: { (s) -> AppAction in
+//                                                .hideFilePicker
+//                                               }), content: {
+//                                                FilePickerController(url: viewStore.saveFile) { (url) in
+//                                                  print(url)
+//                                                }
+//                                               })
       }
     }
     .listStyle(PlainListStyle())
@@ -133,7 +131,7 @@ struct BehaviorsSection: View {
   var body: some View {
     WithViewStore(store) { viewStore in
       Section(header: SectionHeader(title: "Behaviors", action: {
-        viewStore.send(.add)
+        viewStore.send(.addBehavior)
       })) {
         ForEach(viewStore.behaviors) { behavior in
           Button(behavior.emitterTypeName.capitalized) {

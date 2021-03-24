@@ -16,6 +16,7 @@ struct ContentView: View {
       HStack(spacing: 0) {
         ComponentListView(store: store)
           .frame(width: 260)
+          .zIndex(1)
         EmitterViewRepresentable(store: store)
       }
 
