@@ -162,67 +162,12 @@ class EmitterView: UIView {
     emitterLayer.setValue(behaviors, forKey: "emitterBehaviors")
   }
 
-
-  func configureEmitterCell(emitterConfiguration: EmitterCellConfiguration) {
-
-    let emitterCell = CAEmitterCell()
-    emitterCell.name = "\(emitterConfiguration.id)"
-    emitterCell.beginTime = 0.1
-    emitterCell.contents = emitterConfiguration.contents.image?.cgImage
-    emitterCell.emissionRange = emitterConfiguration.emissionRange
-    emitterCell.spin = emitterConfiguration.spin
-    emitterCell.spinRange = emitterConfiguration.spinRange
-
-    emitterCell.scale = emitterConfiguration.scale
-    emitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
-
-    emitterCell.velocity = emitterConfiguration.velocity
-    emitterCell.velocityRange = emitterConfiguration.velocityRange
-    emitterCell.birthRate = Float(emitterConfiguration.birthRate)
-    emitterCell.scaleRange = emitterConfiguration.scaleRange
-    emitterCell.scaleSpeed = emitterConfiguration.scaleSpeed
-    emitterCell.xAcceleration = emitterConfiguration.acceleration.x
-    emitterCell.yAcceleration = emitterConfiguration.acceleration.y
-    emitterCell.zAcceleration = emitterConfiguration.acceleration.z
-    emitterCell.velocity = emitterConfiguration.velocity
-    emitterCell.velocityRange = emitterConfiguration.velocityRange
-    emitterCell.alphaSpeed = Float(emitterConfiguration.alphaSpeed)
-    emitterCell.alphaRange = Float(emitterConfiguration.alphaRange)
-    emitterCell.redRange = Float(emitterConfiguration.redRange)
-    emitterCell.redSpeed = Float(emitterConfiguration.redSpeed)
-    emitterCell.greenRange = Float(emitterConfiguration.greenRange)
-    emitterCell.greenSpeed = Float(emitterConfiguration.greenSpeed)
-    emitterCell.blueRange = Float(emitterConfiguration.blueRange)
-    emitterCell.blueSpeed = Float(emitterConfiguration.blueSpeed)
-    emitterCell.lifetime = Float(emitterConfiguration.lifetime)
-    emitterCell.lifetimeRange = Float(emitterConfiguration.lifetimeRange)
-
-    emitterCell.setValue(emitterConfiguration.particleType.rawValue,
-                                    forKey: "particleType")
-    emitterCell.setValue(emitterConfiguration.orientationRange,
-                                    forKey: "orientationRange")
-    emitterCell.setValue(emitterConfiguration.orientationLongitude,
-                                    forKey: "orientationLongitude")
-    emitterCell.setValue(emitterConfiguration.orientationLatitude,
-                                    forKey: "orientationLatitude")
-
-    emitterLayer.emitterCells = [emitterCell]
-  }
-
-
   override func layoutSubviews() {
     super.layoutSubviews()
 
     backgroundColor = .darkGray
     emitterLayer.frame = bounds
     emitterLayer.scale = 1
-  }
-
-  func createBehavior(type: String) -> NSObject {
-    let behaviorClass = NSClassFromString("CAEmitterBehavior") as! NSObject.Type
-    let behaviorWithType = behaviorClass.method(for: NSSelectorFromString("behaviorWithType:"))!
-    let castedBehaviorWithType = unsafeBitCast(behaviorWithType, to:(@convention(c)(Any?, Selector, Any?) -> NSObject).self)
-    return castedBehaviorWithType(behaviorClass, NSSelectorFromString("behaviorWithType:"), type)
   }
 
 }

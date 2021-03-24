@@ -125,10 +125,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
       return .none
 
     case let .loadExample(example):
-      if let fileURL = Bundle.main.url(forResource: example.rawValue,
-                                       withExtension: "json") {
-        state.tryLoadURL(url: fileURL)
-      }
+      state.tryLoadExample(example: example)
       return .none
 
     case .hideFilePicker:
