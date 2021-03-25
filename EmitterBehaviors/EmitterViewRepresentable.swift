@@ -108,6 +108,8 @@ class EmitterView: UIView {
       emitterCell.scale = emitterConfiguration.scale
       emitterCell.color = UIColor(emitterConfiguration.color.opacity(Double(emitterConfiguration.alpha))).cgColor
 
+      emitterCell.emissionLongitude = emitterConfiguration.emissionLongitude
+      emitterCell.emissionLatitude = emitterConfiguration.emissionLatitude
       emitterCell.velocity = emitterConfiguration.velocity
       emitterCell.velocityRange = emitterConfiguration.velocityRange
       emitterCell.birthRate = emitterConfiguration.birthRate

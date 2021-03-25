@@ -183,6 +183,24 @@ struct VelocityConfigurationView: View {
                           minValue: 0,
                           maxValue: 200)
 
+      SliderWithTextField(title: "Emission Longitude",
+                          value: viewStore.binding(keyPath: \.emissionLongitude,
+                                                   send: EmitterCellAction.bindingAction),
+                          minValue: 0,
+                          maxValue: CGFloat.pi * 2)
+
+      SliderWithTextField(title: "Emission Latitude",
+                          value: viewStore.binding(keyPath: \.emissionLatitude,
+                                                   send: EmitterCellAction.bindingAction),
+                          minValue: 0,
+                          maxValue: CGFloat.pi * 2)
+
+      SliderWithTextField(title: "Emission Range",
+                          value: viewStore.binding(keyPath: \.emissionRange,
+                                                   send: EmitterCellAction.bindingAction),
+                          minValue: 0,
+                          maxValue: CGFloat.pi * 2)
+
       Vector3View(label: "Acceleration",
                   value: viewStore.binding(keyPath: \.acceleration,
                                            send: EmitterCellAction.bindingAction))

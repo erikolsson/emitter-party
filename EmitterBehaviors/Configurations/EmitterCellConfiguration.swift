@@ -69,8 +69,10 @@ struct EmitterCellConfiguration: Identifiable, Equatable, Codable {
   var spinRange: CGFloat = 0.1
   var velocity: CGFloat = 10
   var velocityRange: CGFloat = 8
+  var emissionLongitude: CGFloat = 0
+  var emissionLatitude: CGFloat = .pi
   var acceleration: Vector3 = Vector3(x: 0, y: 150, z: 0)
-  var emissionRange: CGFloat = 6.28
+  var emissionRange: CGFloat = 0
   var birthRate: Float = 10
   var lifetime: Float = 5
   var lifetimeRange: Float = 4

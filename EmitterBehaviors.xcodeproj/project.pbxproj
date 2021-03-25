@@ -381,7 +381,7 @@
 				CODE_SIGN_ENTITLEMENTS = EmitterBehaviors/EmitterBehaviors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EmitterBehaviors/Preview Content\"";
-				DEVELOPMENT_TEAM = ZW2C6ZA5K9;
+				DEVELOPMENT_TEAM = 3CGSP27B75;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EmitterBehaviors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -405,7 +405,7 @@
 				CODE_SIGN_ENTITLEMENTS = EmitterBehaviors/EmitterBehaviors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"EmitterBehaviors/Preview Content\"";
-				DEVELOPMENT_TEAM = ZW2C6ZA5K9;
+				DEVELOPMENT_TEAM = 3CGSP27B75;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = EmitterBehaviors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
