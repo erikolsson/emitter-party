@@ -68,7 +68,8 @@ struct EmitterBehaviorConfiguration: Codable, Equatable, Identifiable {
   var radius: Double = 0
   var position: Vector3 = .zero
   var falloff: Double = 0
-
+  var orientationLatitude: Double = 0
+  var orientationLongitude: Double = 0
 }
 
 enum EmitterBehaviorAction: Equatable {
@@ -82,102 +83,3 @@ let emitterBehaviorReducer = Reducer<EmitterBehaviorConfiguration, EmitterBehavi
   return .none
 }
 .binding(action: /EmitterBehaviorAction.bindingAction)
-.debug()
-
-extension EmitterBehaviorConfiguration {
-
-  var showForce: Bool {
-    switch self.behaviorType {
-    case .wave:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showFrequency: Bool {
-    switch self.behaviorType {
-    case .wave:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showDrag: Bool {
-    switch self.behaviorType {
-    case .drag:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showRotation: Bool {
-    switch self.behaviorType {
-    case .alignToMotion:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showPreservesDepth: Bool {
-    switch self.behaviorType {
-    case .alignToMotion:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showAttractorType: Bool {
-    switch self.behaviorType {
-    case .attractor:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showStiffness: Bool {
-    switch self.behaviorType {
-    case .attractor:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showRadius: Bool {
-    switch self.behaviorType {
-    case .attractor:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showPosition: Bool {
-    switch self.behaviorType {
-    case .attractor:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showFalloff: Bool {
-    switch self.behaviorType {
-    case .attractor:
-      return true
-    default:
-      return false
-    }
-  }
-
-  var showColor: Bool {
-    return false
-  }
-
-}

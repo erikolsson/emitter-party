@@ -46,6 +46,8 @@ extension EmitterBehaviorConfiguration {
       object.setValue(NSNumber(value: falloff), forKey: "falloff")
       object.setValue(CGPoint(x: position.x, y: position.y), forKey: "position")
       object.setValue(position.z, forKey: "zPosition")
+      object.setValue(orientationLatitude, forKey: "orientationLatitude")
+      object.setValue(orientationLongitude, forKey: "orientationLongitude")
     }
     return object
   }

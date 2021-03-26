@@ -146,83 +146,23 @@ struct BehaviorConfigurationView: View {
               .buttonStyle(BorderlessButtonStyle())
           }
           Divider()
-          Group {
-            if viewStore.showForce {
-              Vector3View(label: "Force",
-                          value: viewStore.binding(keyPath: \.force,
-                                                   send: EmitterBehaviorAction.bindingAction))
-            }
 
-            if viewStore.showFrequency {
-              SliderWithTextField(title: "Frequency",
-                                  value: viewStore.binding(keyPath: \.frequency,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: 0,
-                                  maxValue: 1)
-            }
-
-            if viewStore.showDrag {
-              SliderWithTextField(title: "Drag",
-                                  value: viewStore.binding(keyPath: \.drag,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: 0,
-                                  maxValue: 1)
-            }
-
-            if viewStore.showRotation {
-              SliderWithTextField(title: "Rotation",
-                                  value: viewStore.binding(keyPath: \.rotation,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: 0,
-                                  maxValue: .pi * 2)
-            }
-
-            if viewStore.showPreservesDepth {
-              Toggle("Preserves Depth",
-                     isOn: viewStore.binding(keyPath: \.preservesDepth,
-                                             send: EmitterBehaviorAction.bindingAction))
-            }
-
-            if viewStore.showAttractorType {
-              Menu(viewStore.attractorType.rawValue) {
-                ForEach(AttractorType.allCases, id: \.self) { type in
-                  Button(type.rawValue) {
-                    viewStore.send(.bindingAction(.set(\.attractorType, type)))
-                  }
-                }
-              }
-            }
-
-            if viewStore.showStiffness {
-              SliderWithTextField(title: "Stiffness",
-                                  value: viewStore.binding(keyPath: \.stiffness,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: -30,
-                                  maxValue: 30)
-            }
-
-            if viewStore.showRadius {
-              SliderWithTextField(title: "Radius",
-                                  value: viewStore.binding(keyPath: \.radius,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: 0,
-                                  maxValue: 300)
-            }
-
-            if viewStore.showPosition {
-              Vector3View(label: "Position",
-                          value: viewStore.binding(keyPath: \.position,
-                                                   send: EmitterBehaviorAction.bindingAction))
-            }
-
-            if viewStore.showFalloff {
-              SliderWithTextField(title: "Falloff",
-                                  value: viewStore.binding(keyPath: \.falloff,
-                                                           send: EmitterBehaviorAction.bindingAction),
-                                  minValue: -300,
-                                  maxValue: 300)
-            }
+          if viewStore.behaviorType == .wave {
+            WaveConfigurationView(store: store)
           }
+
+          if viewStore.behaviorType == .drag {
+            DragConfigurationView(store: store)
+          }
+
+          if viewStore.behaviorType == .alignToMotion {
+            AlignToMotionConfigurationView(store: store)
+          }
+
+          if viewStore.behaviorType == .attractor {
+            AttractorConfigurationView(store: store)
+          }
+
           Spacer()
         }
         .padding(.all, 10)
@@ -230,4 +170,111 @@ struct BehaviorConfigurationView: View {
     }
   }
 
+}
+
+struct WaveConfigurationView: View {
+  let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
+
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      Vector3View(label: "Force",
+                  value: viewStore.binding(keyPath: \.force,
+                                           send: EmitterBehaviorAction.bindingAction))
+      SliderWithTextField(title: "Frequency",
+                          value: viewStore.binding(keyPath: \.frequency,
+                                                   send: EmitterBehaviorAction.bindingAction),
+                          minValue: 0,
+                          maxValue: 5)
+    }
+  }
+
+}
+
+struct DragConfigurationView: View {
+  let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
+
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      SliderWithTextField(title: "Drag",
+                          value: viewStore.binding(keyPath: \.drag,
+                                                   send: EmitterBehaviorAction.bindingAction),
+                          minValue: 0,
+                          maxValue: 1)
+    }
+  }
+
+}
+
+struct AlignToMotionConfigurationView: View {
+  let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
+
+  var body: some View {
+    WithViewStore(store) { viewStore in
+        SliderWithTextField(title: "Rotation",
+                            value: viewStore.binding(keyPath: \.rotation,
+                                                     send: EmitterBehaviorAction.bindingAction),
+                            minValue: 0,
+                            maxValue: .pi * 2)
+
+      Toggle("Preserves Depth",
+             isOn: viewStore.binding(keyPath: \.preservesDepth,
+                                     send: EmitterBehaviorAction.bindingAction))
+    }
+  }
+
+}
+
+struct AttractorConfigurationView: View {
+  let store: Store<EmitterBehaviorConfiguration, EmitterBehaviorAction>
+  
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      
+      Menu(viewStore.attractorType.rawValue) {
+        ForEach(AttractorType.allCases, id: \.self) { type in
+          Button(type.rawValue) {
+            viewStore.send(.bindingAction(.set(\.attractorType, type)))
+          }
+        }
+      }
+      
+      
+      
+      SliderWithTextField(title: "Stiffness",
+                          value: viewStore.binding(keyPath: \.stiffness,
+                                                   send: EmitterBehaviorAction.bindingAction),
+                          minValue: -30,
+                          maxValue: 30)
+      
+      SliderWithTextField(title: "Radius",
+                          value: viewStore.binding(keyPath: \.radius,
+                                                   send: EmitterBehaviorAction.bindingAction),
+                          minValue: 0,
+                          maxValue: 300)
+      
+      Vector3View(label: "Position",
+                  value: viewStore.binding(keyPath: \.position,
+                                           send: EmitterBehaviorAction.bindingAction))
+      
+      SliderWithTextField(title: "Falloff",
+                          value: viewStore.binding(keyPath: \.falloff,
+                                                   send: EmitterBehaviorAction.bindingAction),
+                          minValue: -300,
+                          maxValue: 300)
+
+      if viewStore.attractorType != .radial {
+        SliderWithTextField(title: "Orientation Latitude",
+                            value: viewStore.binding(keyPath: \.orientationLatitude,
+                                                     send: EmitterBehaviorAction.bindingAction),
+                            minValue: -Double.pi,
+                            maxValue: .pi)
+
+        SliderWithTextField(title: "Orientation Longitude",
+                            value: viewStore.binding(keyPath: \.orientationLongitude,
+                                                     send: EmitterBehaviorAction.bindingAction),
+                            minValue: -Double.pi,
+                            maxValue: .pi)
+      }
+    }
+  }
 }

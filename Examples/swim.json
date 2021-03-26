@@ -1,1 +1,160 @@
-{"emitter":{"emitterShape":"sphere","birthRate":1,"emitterCells":[{"color":{"red":0.30840110780000002,"green":0.5618229508,"blue":0},"alphaSpeed":0.20543110370635986,"alphaRange":0,"particleType":"plane","blueSpeed":0,"lifetimeRange":4,"scaleSpeed":0.029999999999999999,"scaleRange":0.20000000000000001,"velocity":10,"orientationLatitude":0,"emissionRange":6.2800000000000002,"velocityRange":8,"contents":"arrow","redRange":0,"birthRate":13.61681079864502,"spinRange":0.10000000000000001,"id":"0D67240B-AA23-4B32-8907-B77133DD3EAC","greenSpeed":0,"alpha":1,"greenRange":0,"acceleration":{"x":200,"y":0,"z":0},"scale":1,"blueRange":0,"redSpeed":0,"orientationLongitude":1.5707963267948966,"orientationRange":0.28905372326495127,"spin":11.886031627655029,"lifetime":5},{"color":{"red":0.57380741830000004,"green":0.56553578380000002,"blue":0},"alphaSpeed":1,"alphaRange":0,"particleType":"plane","blueSpeed":0,"lifetimeRange":4,"scaleSpeed":0.029999999999999999,"scaleRange":0.20000000000000001,"velocity":10,"orientationLatitude":0,"emissionRange":6.2800000000000002,"velocityRange":8,"contents":"arrow","redRange":0,"birthRate":25.464984893798828,"spinRange":0.10000000000000001,"id":"267734B1-2C6B-4D7A-81A8-CAED7B1E1D8B","greenSpeed":0,"alpha":1,"greenRange":0,"acceleration":{"x":200,"y":0,"z":0},"scale":1,"blueRange":0,"redSpeed":0,"orientationLongitude":1.5707963267948966,"orientationRange":0,"spin":10.906174182891846,"lifetime":5}],"animations":[],"emitterPosition":[0,200],"emitterSize":[50,50]},"behaviors":[{"id":"CA0D035E-6611-42C5-B442-412C24D9F0B7","drag":0,"rotation":0,"radius":0,"position":{"x":0,"y":0,"z":0},"behaviorType":"alignToMotion","attractorType":"radial","falloff":0,"stiffness":0,"force":{"x":1500,"y":0,"z":0},"frequency":0.68400895595550537,"preservesDepth":false},{"id":"B29D6944-BFB9-4007-B41F-992F0D953492","drag":0,"rotation":0,"radius":0,"position":{"x":0,"y":0,"z":0},"behaviorType":"wave","attractorType":"radial","falloff":0,"stiffness":0,"force":{"x":500,"y":0,"z":0},"frequency":0.73702377080917358,"preservesDepth":false},{"id":"C24556BA-37CB-4D72-9188-94E5AD2E9F86","drag":0,"rotation":0,"radius":0,"position":{"x":0,"y":0,"z":0},"behaviorType":"wave","attractorType":"radial","falloff":0,"stiffness":0,"force":{"x":0,"y":500,"z":0},"frequency":0.67677116394042969,"preservesDepth":false}]}
+{
+  "emitter": {
+    "emitterShape": "sphere",
+    "birthRate": 1,
+    "emitterCells": [{
+      "color": {
+        "red": 0.30840110780000002,
+        "green": 0.5618229508,
+        "blue": 0
+      },
+      "alphaSpeed": 0.20543110370635986,
+      "alphaRange": 0,
+      "particleType": "plane",
+      "blueSpeed": 0,
+      "lifetimeRange": 4,
+      "scaleSpeed": 0.029999999999999999,
+      "scaleRange": 0.20000000000000001,
+      "velocity": 10,
+      "orientationLatitude": 0,
+      "emissionRange": 6.2800000000000002,
+      "velocityRange": 8,
+      "contents": "arrow",
+      "redRange": 0,
+      "birthRate": 13.61681079864502,
+      "spinRange": 0.10000000000000001,
+      "id": "0D67240B-AA23-4B32-8907-B77133DD3EAC",
+      "greenSpeed": 0,
+      "alpha": 1,
+      "greenRange": 0,
+      "acceleration": {
+        "x": 200,
+        "y": 0,
+        "z": 0
+      },
+      "scale": 1,
+      "blueRange": 0,
+      "redSpeed": 0,
+      "orientationLongitude": 1.5707963267948966,
+      "orientationRange": 0.28905372326495127,
+      "spin": 11.886031627655029,
+      "lifetime": 5,
+      "emissionLongitude": 0,
+      "emissionLatitude": 0
+    }, {
+      "color": {
+        "red": 0.57380741830000004,
+        "green": 0.56553578380000002,
+        "blue": 0
+      },
+      "alphaSpeed": 1,
+      "alphaRange": 0,
+      "particleType": "plane",
+      "blueSpeed": 0,
+      "lifetimeRange": 4,
+      "scaleSpeed": 0.029999999999999999,
+      "scaleRange": 0.20000000000000001,
+      "velocity": 10,
+      "orientationLatitude": 0,
+      "emissionRange": 6.2800000000000002,
+      "velocityRange": 8,
+      "contents": "arrow",
+      "redRange": 0,
+      "birthRate": 25.464984893798828,
+      "spinRange": 0.10000000000000001,
+      "id": "267734B1-2C6B-4D7A-81A8-CAED7B1E1D8B",
+      "greenSpeed": 0,
+      "alpha": 1,
+      "greenRange": 0,
+      "acceleration": {
+        "x": 200,
+        "y": 0,
+        "z": 0
+      },
+      "scale": 1,
+      "blueRange": 0,
+      "redSpeed": 0,
+      "orientationLongitude": 1.5707963267948966,
+      "orientationRange": 0,
+      "spin": 10.906174182891846,
+      "emissionLongitude": 0,
+      "emissionLatitude": 0,
+      "lifetime": 5,
+      "emissionLongitude": 0,
+      "emissionLatitude": 0
+    }],
+    "animations": [],
+    "emitterPosition": [0, 200],
+    "emitterSize": [50, 50]
+  },
+  "behaviors": [{
+    "id": "CA0D035E-6611-42C5-B442-412C24D9F0B7",
+    "drag": 0,
+    "rotation": 0,
+    "radius": 0,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "behaviorType": "alignToMotion",
+    "attractorType": "radial",
+    "falloff": 0,
+    "stiffness": 0,
+    "force": {
+      "x": 1500,
+      "y": 0,
+      "z": 0
+    },
+    "frequency": 0.68400895595550537,
+    "preservesDepth": false,
+    "orientationLongitude": 0,
+    "orientationLatitude": 0,
+  }, {
+    "id": "B29D6944-BFB9-4007-B41F-992F0D953492",
+    "drag": 0,
+    "rotation": 0,
+    "radius": 0,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "behaviorType": "wave",
+    "attractorType": "radial",
+    "falloff": 0,
+    "stiffness": 0,
+    "force": {
+      "x": 500,
+      "y": 0,
+      "z": 0
+    },
+    "frequency": 0.73702377080917358,
+    "preservesDepth": false,
+    "orientationLongitude": 0,
+    "orientationLatitude": 0,
+  }, {
+    "id": "C24556BA-37CB-4D72-9188-94E5AD2E9F86",
+    "drag": 0,
+    "rotation": 0,
+    "radius": 0,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "behaviorType": "wave",
+    "attractorType": "radial",
+    "falloff": 0,
+    "stiffness": 0,
+    "force": {
+      "x": 0,
+      "y": 500,
+      "z": 0
+    },
+    "frequency": 0.67677116394042969,
+    "preservesDepth": false,
+    "orientationLongitude": 0,
+    "orientationLatitude": 0,
+  }]
+}
