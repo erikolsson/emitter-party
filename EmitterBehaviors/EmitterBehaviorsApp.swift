@@ -34,7 +34,7 @@ struct EmitterBehaviorsApp: App {
                 viewStore.send(.openURL(url))
               }
             }
-          }
+          }.environment(\.colorScheme, .dark)
       }
       .commands {
         CommandGroup(before: .saveItem) {
